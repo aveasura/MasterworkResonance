@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+    <MWR_ResonancePrefix>Resonance</MWR_ResonancePrefix>
+    <MWR_CreatedResonantItem>Resonant item created</MWR_CreatedResonantItem>
+    <MWR_ResonantWarmupStatLabel>Aiming with resonance</MWR_ResonantWarmupStatLabel>
+    <MWR_SecondsAbbrev>s</MWR_SecondsAbbrev>
+    <MWR_ResonantWarmupStatDescription>This weapon's aiming time after resonance is applied.
+    </MWR_ResonantWarmupStatDescription>
+    <MWR_DevGenerateResonance>Dev: generate resonance</MWR_DevGenerateResonance>
+    <MWR_DevRerollResonance>Dev: reroll resonance</MWR_DevRerollResonance>
+    <MWR_DevGenerateResonanceDescription>Generate or reroll Masterwork Resonance on this item. Works only for
+        Masterwork/Legendary weapon or apparel.
+    </MWR_DevGenerateResonanceDescription>
+    <MWR_DevResonance>Dev resonance</MWR_DevResonance>
+    <MWR_DevResonanceFailed>Resonance was not applied: the item must be masterwork/legendary and must be a valid weapon
+        or apparel item.
+    </MWR_DevResonanceFailed>
+    <MWR_UnknownResonanceDescription>Unknown resonance. This item may have been created by an older version of the
+        mod.
+    </MWR_UnknownResonanceDescription>
+    <MWR_RollPositionInRange>Roll position in range</MWR_RollPositionInRange>
+    <MWR_Tier>Tier</MWR_Tier>
+    <MWR_CurrentValue>Current value</MWR_CurrentValue>
+    <MWR_Range>Range</MWR_Range>
+    <MWR_CapSuffix>(cap)</MWR_CapSuffix>
+    <MWR_FromBaseValueSuffix>from base value</MWR_FromBaseValueSuffix>
+    <MWR_ResonantEquipment>Resonant equipment</MWR_ResonantEquipment>
+    <MWR_ResonantEquipmentTooltip>Equipped resonant gear improves mood.</MWR_ResonantEquipmentTooltip>
+
+    <MWR_Enchant_MeleeDamage_Label>Sharp</MWR_Enchant_MeleeDamage_Label>
+    <MWR_Enchant_MeleeDamage_Description>Increases melee weapon damage.</MWR_Enchant_MeleeDamage_Description>
+    <MWR_Enchant_MeleeCooldown_Label>Swift</MWR_Enchant_MeleeCooldown_Label>
+    <MWR_Enchant_MeleeCooldown_Description>Reduces the time between melee attacks.
+    </MWR_Enchant_MeleeCooldown_Description>
+    <MWR_Enchant_MeleeMood_Label>Encouraging</MWR_Enchant_MeleeMood_Label>
+    <MWR_Enchant_MeleeMood_Description>While equipped, this weapon improves the wielder's mood.
+    </MWR_Enchant_MeleeMood_Description>
+    <MWR_Enchant_MeleeSkill_Label>Brawling</MWR_Enchant_MeleeSkill_Label>
+    <MWR_Enchant_MeleeSkill_Description>While equipped, this weapon increases melee hit chance.
+    </MWR_Enchant_MeleeSkill_Description>
+    <MWR_Enchant_MeleeDodge_Label>Duelist</MWR_Enchant_MeleeDodge_Label>
+    <MWR_Enchant_MeleeDodge_Description>While equipped, this weapon grants a flat bonus to melee dodge chance.
+    </MWR_Enchant_MeleeDodge_Description>
+
+    <MWR_Enchant_RangedDamage_Label>Accurate</MWR_Enchant_RangedDamage_Label>
+    <MWR_Enchant_RangedDamage_Description>Increases ranged weapon damage.</MWR_Enchant_RangedDamage_Description>
+    <MWR_Enchant_RangedCooldown_Label>Rapid</MWR_Enchant_RangedCooldown_Label>
+    <MWR_Enchant_RangedCooldown_Description>Reduces the time between shots.</MWR_Enchant_RangedCooldown_Description>
+    <MWR_Enchant_RangedWarmup_Label>Ergonomic</MWR_Enchant_RangedWarmup_Label>
+    <MWR_Enchant_RangedWarmup_Description>Reduces weapon aiming time.</MWR_Enchant_RangedWarmup_Description>
+    <MWR_Enchant_RangedMood_Label>Focused</MWR_Enchant_RangedMood_Label>
+    <MWR_Enchant_RangedMood_Description>While equipped, this weapon improves the wielder's mood.
+    </MWR_Enchant_RangedMood_Description>
+    <MWR_Enchant_RangedSkill_Label>Targeting</MWR_Enchant_RangedSkill_Label>
+    <MWR_Enchant_RangedSkill_Description>While equipped, this weapon increases the wielder's shooting accuracy.
+    </MWR_Enchant_RangedSkill_Description>
+
+    <MWR_Enchant_ApparelMoveSpeed_Label>Light</MWR_Enchant_ApparelMoveSpeed_Label>
+    <MWR_Enchant_ApparelMoveSpeed_Description>While worn, this item increases the wearer's movement speed.
+    </MWR_Enchant_ApparelMoveSpeed_Description>
+    <MWR_Enchant_ApparelArmor_Label>Reinforced</MWR_Enchant_ApparelArmor_Label>
+    <MWR_Enchant_ApparelArmor_Description>Reinforces this item against sharp and blunt damage.
+    </MWR_Enchant_ApparelArmor_Description>
+    <MWR_Enchant_ApparelDurability_Label>Durable</MWR_Enchant_ApparelDurability_Label>
+    <MWR_Enchant_ApparelDurability_Description>Increases this item's maximum hit points.
+    </MWR_Enchant_ApparelDurability_Description>
+    <MWR_Enchant_ApparelMood_Label>Inspiring</MWR_Enchant_ApparelMood_Label>
+    <MWR_Enchant_ApparelMood_Description>While worn, this item improves the wearer's mood.
+    </MWR_Enchant_ApparelMood_Description>
+    <MWR_Enchant_ApparelToughness_Label>Stalwart</MWR_Enchant_ApparelToughness_Label>
+    <MWR_Enchant_ApparelToughness_Description>While worn, this item reduces incoming damage.
+    </MWR_Enchant_ApparelToughness_Description>
+    <MWR_Enchant_ApparelDodge_Label>Flexible</MWR_Enchant_ApparelDodge_Label>
+    <MWR_Enchant_ApparelDodge_Description>While worn, this item grants a flat bonus to melee dodge chance.
+    </MWR_Enchant_ApparelDodge_Description>
+
+    <MWR_Enchant_ApparelConsciousness_Label>Clarifying</MWR_Enchant_ApparelConsciousness_Label>
+    <MWR_Enchant_ApparelConsciousness_Description>Removed resonance. It no longer rolls and has no effect.
+    </MWR_Enchant_ApparelConsciousness_Description>
+    <MWR_Enchant_ApparelPainReduction_Label>Pain-dulling</MWR_Enchant_ApparelPainReduction_Label>
+    <MWR_Enchant_ApparelPainReduction_Description>Planned: while worn, this item reduces the wearer's pain.
+    </MWR_Enchant_ApparelPainReduction_Description>
+</LanguageData>

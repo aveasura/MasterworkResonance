@@ -1,0 +1,30 @@
+# Local notes
+#*.txt
+
+# IDE / editor
+.idea/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+*.sln.DotSettings.user
+
+# Build output
+bin/
+obj/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+#*.dll
+*.pdb
+*.mdb
+
+# Logs / local runtime files
+*.log
+LogOutput.log
+
+# OS files
+.DS_Store
+Thumbs.db

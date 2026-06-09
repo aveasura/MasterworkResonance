@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
+            Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
+
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <ProjectGuid>{EC872AB4-663A-4DFE-89E9-3B98B72E85CC}</ProjectGuid>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>MasterworkResonance</RootNamespace>
+        <AssemblyName>MasterworkResonance</AssemblyName>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <RimWorldManaged>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed</RimWorldManaged>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\Release\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="System"/>
+        <Reference Include="System.Core"/>
+        <Reference Include="System.Data"/>
+        <Reference Include="System.Xml"/>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(RimWorldManaged)\Assembly-CSharp.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(RimWorldManaged)\UnityEngine.CoreModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>$(RimWorldManaged)\UnityEngine.IMGUIModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+            <HintPath>$(RimWorldManaged)\UnityEngine.TextRenderingModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="0Harmony">
+            <!--            <HintPath>$(RimWorldManaged)\0Harmony.dll</HintPath>-->
+
+            <!--            вынес отдельно-->
+            <HintPath>C://Programs//aveasura-modding_files//0Harmony.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="Utility\ArmorCapUtility.cs"/>
+        <Compile Include="Comps\CompEnchantments.cs"/>
+        <Compile Include="Comps\CompProperties_Enchantments.cs"/>
+        <Compile Include="Core\EnchantableDefInjector.cs"/>
+        <Compile Include="Data\EnchantmentDatabase.cs"/>
+        <Compile Include="Data\EnchantmentOption.cs"/>
+        <Compile Include="Core\EnchantmentsBootstrap.cs"/>
+        <Compile Include="GameComponents\GameComponent_MasterworkResonanceMood.cs"/>
+        <Compile Include="Core\MasterworkResonanceConfig.cs"/>
+        <Compile Include="Patches\Core\Patch_PlayDataLoader_DoPlayLoad.cs"/>
+        <Compile Include="Patches\Equipment\Patch_Apparel_NotifyEquipped.cs"/>
+        <Compile Include="Patches\Equipment\Patch_PawnApparelTracker_Notify.cs"/>
+        <Compile Include="Patches\Equipment\Patch_PawnEquipmentTracker_Notify.cs"/>
+        <Compile Include="Patches\Stats\Patch_NeedMood_ResonanceBonus.cs"/>
+        <Compile Include="Patches\UI\Patch_NeedsCardUtility_ResonanceMoodLine.cs"/>
+        <Compile Include="Patches\Crafting\Patch_CompQuality_SetQuality.cs"/>
+        <Compile Include="Patches\Crafting\Patch_GenRecipe_PostProcessProduct.cs"/>
+        <Compile Include="Patches\Stats\Patch_StanceWarmup_RangedWarmup.cs"/>
+        <Compile Include="Patches\Crafting\Patch_ThingWithComps_PostMake.cs"/>
+        <Compile Include="Patches\Stats\Patch_Thing_MaxHitPoints.cs"/>
+        <Compile Include="Utility\ResonanceDeterministicRandom.cs"/>
+        <Compile Include="Utility\ResonanceHediffUtility.cs"/>
+        <Compile Include="Utility\ResonanceTranslation.cs"/>
+        <Compile Include="StatParts\ResonanceStatPartInjector.cs"/>
+        <Compile Include="Utility\ResonanceUtility.cs"/>
+        <Compile Include="StatParts\StatPart_ResonanceEquippedWeapon.cs"/>
+        <Compile Include="StatParts\StatPart_ResonanceEquippedWeaponOffset.cs"/>
+        <Compile Include="StatParts\StatPart_ResonanceThing.cs"/>
+        <Compile Include="StatParts\StatPart_ResonanceWornApparel.cs"/>
+        <Compile Include="StatParts\StatPart_ResonanceWornApparelOffset.cs"/>
+        <Compile Include="Thoughts\ThoughtWorker_ResonanceMood.cs"/>
+        <Compile Include="Properties\AssemblyInfo.cs"/>
+    </ItemGroup>
+
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+
+    <Target Name="CopyToModAssemblies" AfterTargets="Build">
+        <MakeDir Directories="..\Assemblies"/>
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="..\Assemblies"/>
+        <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="..\Assemblies" Condition="Exists('$(TargetDir)$(TargetName).pdb')"/>
+    </Target>
+</Project>

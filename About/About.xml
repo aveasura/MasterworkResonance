@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>Masterwork Resonance</name>
+  <author>aveasura</author>
+  <packageId>aveasura.masterworkresonance</packageId>
+  <supportedVersions>
+    <li>1.5</li>
+    <li>1.6</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <description>
+Masterwork and legendary weapons, apparel and armor can awaken random resonance when created.
+
+Masterwork items have a 40% chance to awaken resonance.
+Legendary items have an 80% chance to awaken resonance.
+
+Supports RimWorld 1.5 and 1.6.
+Includes Russian and English localization.
+Multiplayer-friendly: crafted resonance rolls use deterministic random generation.
+  </description>
+</ModMetaData>
