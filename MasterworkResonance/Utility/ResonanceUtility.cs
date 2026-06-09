@@ -9,8 +9,6 @@ namespace MasterworkResonance
 {
     public static class ResonanceUtility
     {
-        private const string MoodThoughtDefName = "MasterworkResonance_ResonantEquipment";
-
         private static readonly string[] RelevantThingStatNames =
         {
             "MeleeWeapon_DamageMultiplier",
@@ -247,39 +245,21 @@ namespace MasterworkResonance
             }
 
             ClearLegacyMoodMemory(pawn);
+            ResonanceMoodMemoryUtility.Sync(pawn);
             ResonanceHediffUtility.RemoveClarifyingHediff(pawn);
         }
 
         public static void SyncMoodMemory(Pawn pawn)
         {
             // Оставлено для совместимости со старыми сборками/сохранениями.
-            // Актуальный mood бафф работает как Thought_Situational через ThoughtWorker,
+            // Актуальный mood бафф работает как обычная Thought_Memory.
             ClearLegacyMoodMemory(pawn);
+            ResonanceMoodMemoryUtility.Sync(pawn);
         }
 
         private static void ClearLegacyMoodMemory(Pawn pawn)
         {
-            if (pawn == null || pawn.needs == null || pawn.needs.mood == null || pawn.needs.mood.thoughts == null ||
-                pawn.needs.mood.thoughts.memories == null)
-            {
-                return;
-            }
-
-            ThoughtDef thoughtDef = DefDatabase<ThoughtDef>.GetNamedSilentFail(MoodThoughtDefName);
-            if (thoughtDef == null)
-            {
-                return;
-            }
-
-            try
-            {
-                pawn.needs.mood.thoughts.memories.RemoveMemoriesOfDef(thoughtDef);
-            }
-            catch (Exception ex)
-            {
-                MasterworkResonanceConfig.LogWarning("[MasterworkResonance] Failed to clear legacy mood memory for " +
-                                                     pawn.LabelShort + ": " + ex.Message);
-            }
+            ResonanceMoodMemoryUtility.ClearLegacyMemory(pawn);
         }
 
         public static void TryDirtyPawnCapacities(Pawn pawn)

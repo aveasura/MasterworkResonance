@@ -19,6 +19,7 @@ namespace MasterworkResonance
             EnchantableDefInjector.Inject();
             ArmorCapUtility.RaiseArmorCaps();
             ResonanceHediffUtility.PrepareDefs();
+            ResonanceMoodMemoryUtility.PrepareDefs();
             ResonanceStatPartInjector.Inject();
         }
     }
