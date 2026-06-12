@@ -43,6 +43,7 @@ Weapons can receive bonuses such as:
 * Shooting accuracy bonus
 * Melee dodge bonus
 * Mood bonus while equipped
+* Reduced pain while worn
 
 Armor and apparel can receive bonuses such as:
 
