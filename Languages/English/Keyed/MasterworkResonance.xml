@@ -78,6 +78,7 @@
     <MWR_Enchant_ApparelConsciousness_Description>Removed resonance. It no longer rolls and has no effect.
     </MWR_Enchant_ApparelConsciousness_Description>
     <MWR_Enchant_ApparelPainReduction_Label>Pain-dulling</MWR_Enchant_ApparelPainReduction_Label>
-    <MWR_Enchant_ApparelPainReduction_Description>Planned: while worn, this item reduces the wearer's pain.
+    <MWR_Enchant_ApparelPainReduction_Description>While worn, this item reduces the wearer's pain by 1%–20%. Stacks with
+        other Pain-dulling items up to 100%.
     </MWR_Enchant_ApparelPainReduction_Description>
 </LanguageData>

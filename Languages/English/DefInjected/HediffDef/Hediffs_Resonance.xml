@@ -3,4 +3,7 @@
   <MasterworkResonance_ClarifyingConsciousness.label>clarifying resonance</MasterworkResonance_ClarifyingConsciousness.label>
   <MasterworkResonance_ClarifyingConsciousness.description>Legacy resonance. No longer used.</MasterworkResonance_ClarifyingConsciousness.description>
   <MasterworkResonance_ClarifyingConsciousness.stages.0.label>removed</MasterworkResonance_ClarifyingConsciousness.stages.0.label>
+  <MasterworkResonance_PainReduction.label>pain-dulling resonance</MasterworkResonance_PainReduction.label>
+  <MasterworkResonance_PainReduction.description>Resonant equipment dulls the wearer's pain. The effect stacks with other Pain-dulling items up to full pain suppression.</MasterworkResonance_PainReduction.description>
+  <MasterworkResonance_PainReduction.stages.0.label>active</MasterworkResonance_PainReduction.stages.0.label>
 </LanguageData>

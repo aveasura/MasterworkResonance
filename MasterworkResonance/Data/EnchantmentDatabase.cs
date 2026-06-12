@@ -152,7 +152,6 @@ namespace MasterworkResonance
                 EnchantValueFormat.FlatBonus,
                 "Пока предмет надет, даёт плоский бонус к уклонению в ближнем бою."),
 
-            // todo
             // Удалено из активного пула
             new EnchantmentOption(
                 "ApparelConsciousness",
@@ -164,8 +163,6 @@ namespace MasterworkResonance
                 "Удалённый резонанс. Больше не роллится и не даёт эффекта.",
                 false),
 
-            // todo
-            // Пока оставим на потом
             new EnchantmentOption(
                 "ApparelPainReduction",
                 "Обезболивающий",
@@ -173,8 +170,7 @@ namespace MasterworkResonance
                 0.01f,
                 0.20f,
                 EnchantValueFormat.PercentReduction,
-                "План: пока предмет надет, уменьшает боль носителя.",
-                false),
+                "Пока предмет надет, снижает боль носителя. Складывается с другими такими предметами вплоть до 100%."),
         };
 
         public static List<EnchantmentOption> GetOptionsFor(ThingDef def)

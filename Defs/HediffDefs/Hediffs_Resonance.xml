@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <!-- Legacy only. -->
-  <HediffDef>
-    <defName>MasterworkResonance_ClarifyingConsciousness</defName>
-    <label>clarifying resonance</label>
-    <description>Legacy resonance. No longer used.</description>
-    <hediffClass>Hediff</hediffClass>
-    <initialSeverity>0.1</initialSeverity>
-    <isBad>false</isBad>
-    <tendable>false</tendable>
-    <scenarioCanAdd>false</scenarioCanAdd>
-    <displayWound>false</displayWound>
-    <stages>
-      <li>
-        <label>removed</label>
-        <minSeverity>0</minSeverity>
-      </li>
-    </stages>
-  </HediffDef>
+    <!-- Legacy only. -->
+    <HediffDef>
+        <defName>MasterworkResonance_ClarifyingConsciousness</defName>
+        <label>clarifying resonance</label>
+        <description>Legacy resonance. No longer used.</description>
+        <hediffClass>Hediff</hediffClass>
+        <initialSeverity>0.1</initialSeverity>
+        <isBad>false</isBad>
+        <tendable>false</tendable>
+        <scenarioCanAdd>false</scenarioCanAdd>
+        <displayWound>false</displayWound>
+        <stages>
+            <li>
+                <label>removed</label>
+                <minSeverity>0</minSeverity>
+            </li>
+        </stages>
+    </HediffDef>
+
+    <HediffDef>
+        <defName>MasterworkResonance_PainReduction</defName>
+        <label>pain-dulling resonance</label>
+        <description>Resonant equipment dulls the wearer's pain.</description>
+        <hediffClass>MasterworkResonance.Hediff_ResonancePainReduction</hediffClass>
+        <initialSeverity>0.1</initialSeverity>
+        <isBad>false</isBad>
+        <tendable>false</tendable>
+        <scenarioCanAdd>false</scenarioCanAdd>
+        <displayWound>false</displayWound>
+        <stages>
+            <li>
+                <label>active</label>
+                <minSeverity>0</minSeverity>
+            </li>
+        </stages>
+    </HediffDef>
+
 </Defs>

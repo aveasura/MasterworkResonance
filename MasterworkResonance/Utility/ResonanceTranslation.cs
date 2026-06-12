@@ -84,7 +84,10 @@ namespace MasterworkResonance
             { "Enchant_ApparelConsciousness_Label", "Clarifying" },
             { "Enchant_ApparelConsciousness_Description", "Removed resonance. It no longer rolls and has no effect." },
             { "Enchant_ApparelPainReduction_Label", "Pain-dulling" },
-            { "Enchant_ApparelPainReduction_Description", "Planned: while worn, this item reduces the wearer's pain." },
+            {
+                "Enchant_ApparelPainReduction_Description",
+                "While worn, this item reduces the wearer's pain by 1%–20%. Stacks with other Pain-dulling items up to 100%."
+            },
         };
 
         public static string Translate(string keySuffix, string fallback)
@@ -101,7 +104,7 @@ namespace MasterworkResonance
 
                 return fallback;
             }
-            
+
             string english;
             if (EnglishFallbacks.TryGetValue(keySuffix, out english))
             {

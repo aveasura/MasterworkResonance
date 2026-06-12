@@ -3,4 +3,7 @@
   <MasterworkResonance_ClarifyingConsciousness.label>проясняющий резонанс</MasterworkResonance_ClarifyingConsciousness.label>
   <MasterworkResonance_ClarifyingConsciousness.description>Устаревший резонанс. Больше не используется.</MasterworkResonance_ClarifyingConsciousness.description>
   <MasterworkResonance_ClarifyingConsciousness.stages.0.label>удалён</MasterworkResonance_ClarifyingConsciousness.stages.0.label>
+  <MasterworkResonance_PainReduction.label>обезболивающий резонанс</MasterworkResonance_PainReduction.label>
+  <MasterworkResonance_PainReduction.description>Резонансная экипировка притупляет боль носителя. Эффект складывается с другими предметами с этим резонансом вплоть до полного подавления боли.</MasterworkResonance_PainReduction.description>
+  <MasterworkResonance_PainReduction.stages.0.label>активен</MasterworkResonance_PainReduction.stages.0.label>
 </LanguageData>

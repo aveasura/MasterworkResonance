@@ -247,6 +247,7 @@ namespace MasterworkResonance
             ClearLegacyMoodMemory(pawn);
             ResonanceMoodMemoryUtility.Sync(pawn);
             ResonanceHediffUtility.RemoveClarifyingHediff(pawn);
+            ResonanceHediffUtility.MaintainPainReductionHediff(pawn);
         }
 
         public static void SyncMoodMemory(Pawn pawn)

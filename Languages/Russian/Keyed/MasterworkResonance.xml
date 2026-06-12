@@ -77,6 +77,7 @@
     <MWR_Enchant_ApparelConsciousness_Description>Удалённый резонанс. Больше не роллится и не даёт эффекта.
     </MWR_Enchant_ApparelConsciousness_Description>
     <MWR_Enchant_ApparelPainReduction_Label>Обезболивающий</MWR_Enchant_ApparelPainReduction_Label>
-    <MWR_Enchant_ApparelPainReduction_Description>План: пока предмет надет, уменьшает боль носителя.
+    <MWR_Enchant_ApparelPainReduction_Description>Пока предмет надет, снижает боль носителя на 1%–20%. Складывается с
+        другими предметами с этим резонансом вплоть до 100%.
     </MWR_Enchant_ApparelPainReduction_Description>
 </LanguageData>

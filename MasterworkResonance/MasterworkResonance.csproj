@@ -15,7 +15,7 @@
         <FileAlignment>512</FileAlignment>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
-    
+
     <PropertyGroup>
         <RimWorldManaged>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\RimWorldWin64_Data\Managed</RimWorldManaged>
     </PropertyGroup>
@@ -80,6 +80,7 @@
         <Compile Include="Data\EnchantmentOption.cs"/>
         <Compile Include="Core\EnchantmentsBootstrap.cs"/>
         <Compile Include="GameComponents\GameComponent_MasterworkResonanceMood.cs"/>
+        <Compile Include="Hediffs\Hediff_ResonancePainReduction.cs"/>
         <Compile Include="Core\MasterworkResonanceConfig.cs"/>
         <Compile Include="Patches\Core\Patch_PlayDataLoader_DoPlayLoad.cs"/>
         <Compile Include="Patches\Equipment\Patch_Apparel_NotifyEquipped.cs"/>
