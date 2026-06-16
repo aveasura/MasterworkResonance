@@ -107,7 +107,7 @@ namespace MasterworkResonance
             { "Enchant_ApparelPainReduction_Label", "Pain-dulling" },
             {
                 "Enchant_ApparelPainReduction_Description",
-                "While worn, this item reduces the wearer's pain by 1%–20%. Stacks with other Pain-dulling items up to 100%."
+                "While worn, this item reduces the wearer's pain. Stacks with other Pain-dulling items up to 100%."
             },
         };
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Verse;
@@ -15,6 +16,11 @@ namespace MasterworkResonance
         private const float ChanceBlockHeight = 222f;
         private const float OptionCardHeight = 312f;
         private const float TargetHeaderHeight = 34f;
+        private const float FeedbackBlockHeight = 148f;
+        private const float ResetAllBlockHeight = 58f;
+        private const float ResetAllButtonHeight = 30f;
+        private const float ResetAllButtonWidth = 340f;
+        private const string WorkshopUrl = "https://steamcommunity.com/sharedfiles/filedetails/?id=3741570565";
 
         private Vector2 scrollPosition;
 
@@ -39,7 +45,6 @@ namespace MasterworkResonance
 
             Settings.EnsureDictionaries();
 
-            Rect bottomRect = new Rect(inRect.x, inRect.yMax - BottomBarHeight, inRect.width, BottomBarHeight);
             Rect scrollRect = new Rect(inRect.x, inRect.y, inRect.width, inRect.height - BottomBarHeight - 8f);
 
             List<EnchantmentOption> options = EnchantmentDatabase.GetAllOptions(false);
@@ -49,6 +54,8 @@ namespace MasterworkResonance
             Widgets.BeginScrollView(scrollRect, ref scrollPosition, viewRect);
 
             float curY = 0f;
+            DrawFeedbackBlock(viewRect, ref curY);
+            DrawResetAllBlock(viewRect, ref curY);
             DrawIntro(viewRect, ref curY);
             DrawAwakeningSettings(viewRect, ref curY);
             DrawSectionTitle(viewRect, ref curY, ResonanceTranslation.Translate("SettingsRollRanges", "Resonance roll ranges"));
@@ -73,15 +80,6 @@ namespace MasterworkResonance
 
             Widgets.EndScrollView();
 
-            float buttonWidth = 340f;
-            Rect resetAllRect = new Rect(bottomRect.x, bottomRect.y + 5f, buttonWidth, 30f);
-            if (Widgets.ButtonText(resetAllRect, ResonanceTranslation.Translate(
-                    "SettingsResetAll",
-                    "Restore mod defaults")))
-            {
-                Settings.ResetAllToDefaults();
-            }
-
             Settings.ClampAll();
         }
 
@@ -105,18 +103,23 @@ namespace MasterworkResonance
                 }
             }
             
-            return 84f + ChanceBlockHeight + 44f + targetHeaders * TargetHeaderHeight + options.Count * (OptionCardHeight + CardGap) + 40f;
+            return 84f + ChanceBlockHeight + 44f
+                   + targetHeaders * TargetHeaderHeight
+                   + options.Count * (OptionCardHeight + CardGap)
+                   + FeedbackBlockHeight + SectionGap
+                   + ResetAllBlockHeight + SectionGap
+                   + 40f;
         }
 
         private static void DrawIntro(Rect viewRect, ref float curY)
         {
             Text.Font = GameFont.Small;
-            string intro = ResonanceTranslation.Translate(
+            string intro = CleanForLabel(ResonanceTranslation.Translate(
                 "SettingsIntro",
-                "Configure Masterwork Resonance rolls. Existing resonant items keep their rolled value; these settings affect future rolls.");
-            string multiplayerNote = ResonanceTranslation.Translate(
+                "Configure Masterwork Resonance rolls. Existing resonant items keep their rolled value; these settings affect future rolls."));
+            string multiplayerNote = CleanForLabel(ResonanceTranslation.Translate(
                 "SettingsMultiplayerNote",
-                "Multiplayer note: every player should use the same settings to keep deterministic crafting rolls identical.");
+                "Multiplayer note: every player should use the same settings to keep deterministic crafting rolls identical."));
 
             float introHeight = Text.CalcHeight(intro, viewRect.width);
             Widgets.Label(new Rect(0f, curY, viewRect.width, introHeight), intro);
@@ -199,7 +202,7 @@ namespace MasterworkResonance
 
             Text.Font = GameFont.Small;
             listing.Label(option.DisplayLabel + " — " + option.FormatRange());
-            listing.Label(option.DisplayDescription);
+            listing.Label(CleanForLabel(option.DisplayDescription));
 
             listing.CheckboxLabeled(
                 ResonanceTranslation.Translate("SettingsEnabled", "Enabled"),
@@ -239,6 +242,61 @@ namespace MasterworkResonance
 
             listing.End();
             curY += OptionCardHeight + CardGap;
+        }
+
+        private static void DrawFeedbackBlock(Rect viewRect, ref float curY)
+        {
+            Rect cardRect = new Rect(0f, curY, viewRect.width, FeedbackBlockHeight);
+            Widgets.DrawMenuSection(cardRect);
+
+            Rect innerRect = Contract(cardRect, CardPadding);
+            Listing_Standard listing = new Listing_Standard();
+            listing.Begin(innerRect);
+
+            Text.Font = GameFont.Medium;
+            listing.Label(ResonanceTranslation.Translate("SettingsFeedbackTitle", "Feedback"));
+            Text.Font = GameFont.Small;
+
+            listing.Label(CleanForLabel(ResonanceTranslation.Translate(
+                "SettingsFeedbackText",
+                "Have an idea, balance suggestion, or bug report? Leave a comment on the Steam Workshop page.")));
+
+            listing.Gap(4f);
+            if (listing.ButtonText(ResonanceTranslation.Translate("SettingsOpenWorkshopPage", "Open Workshop page")))
+            {
+                Application.OpenURL(WorkshopUrl);
+            }
+
+            listing.End();
+            curY += FeedbackBlockHeight + SectionGap;
+        }
+
+        private static void DrawResetAllBlock(Rect viewRect, ref float curY)
+        {
+            Rect cardRect = new Rect(0f, curY, viewRect.width, ResetAllBlockHeight);
+            Widgets.DrawMenuSection(cardRect);
+
+            Rect innerRect = Contract(cardRect, CardPadding);
+            Rect buttonRect = new Rect(innerRect.x, innerRect.y + 2f, ResetAllButtonWidth, ResetAllButtonHeight);
+
+            if (Widgets.ButtonText(buttonRect, ResonanceTranslation.Translate(
+                    "SettingsResetAll",
+                    "Restore default mod settings")))
+            {
+                Settings.ResetAllToDefaults();
+            }
+
+            curY += ResetAllBlockHeight + SectionGap + 4f;
+        }
+
+        private static string CleanForLabel(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return string.Empty;
+            }
+
+            return string.Join(" ", text.Split((char[])null, StringSplitOptions.RemoveEmptyEntries));
         }
 
         private static Rect Contract(Rect rect, float padding)

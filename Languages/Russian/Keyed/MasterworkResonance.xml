@@ -28,11 +28,9 @@
     <MWR_ResonantEquipmentTooltip>Экипированное резонирующее снаряжение улучшает настроение.
     </MWR_ResonantEquipmentTooltip>
 
-    <MWR_SettingsIntro>Настройки роллов Masterwork Resonance. Уже созданные резонирующие предметы сохраняют свои
-        значения. Эти настройки влияют только на будущие роллы.
+    <MWR_SettingsIntro>Настройки роллов Masterwork Resonance. Уже созданные резонирующие предметы сохраняют свои значения. Эти настройки влияют только на будущие роллы.
     </MWR_SettingsIntro>
-    <MWR_SettingsMultiplayerNote>Важно для мультиплеера: у всех игроков должны быть одинаковые настройки, чтобы
-        детерминированные роллы крафта совпадали.
+    <MWR_SettingsMultiplayerNote>!!! Важно для мультиплеера: у всех игроков должны быть одинаковые настройки, чтобы детерминированные роллы крафта совпадали.
     </MWR_SettingsMultiplayerNote>
     <MWR_SettingsMasterworkChance>Шанс пробуждения шедевра</MWR_SettingsMasterworkChance>
     <MWR_SettingsLegendaryChance>Шанс пробуждения легендарного предмета</MWR_SettingsLegendaryChance>
@@ -56,6 +54,9 @@
     <MWR_SettingsMeleeWeapon>Оружие ближнего боя</MWR_SettingsMeleeWeapon>
     <MWR_SettingsRangedWeapon>Дальнобойное оружие</MWR_SettingsRangedWeapon>
     <MWR_SettingsApparel>Броня и одежда</MWR_SettingsApparel>
+    <MWR_SettingsFeedbackTitle>Обратная связь</MWR_SettingsFeedbackTitle>
+    <MWR_SettingsFeedbackText>Есть идея, предложение по балансу или найден баг? Напиши комментарий на странице мода в Steam Workshop.</MWR_SettingsFeedbackText>
+    <MWR_SettingsOpenWorkshopPage>Открыть страницу мода</MWR_SettingsOpenWorkshopPage>
 
     <MWR_Enchant_MeleeDamage_Label>Острый</MWR_Enchant_MeleeDamage_Label>
     <MWR_Enchant_MeleeDamage_Description>Увеличивает урон оружия ближнего боя.</MWR_Enchant_MeleeDamage_Description>

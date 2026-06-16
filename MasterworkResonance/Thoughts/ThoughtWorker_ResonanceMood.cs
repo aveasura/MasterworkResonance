@@ -5,8 +5,8 @@ using Verse;
 
 namespace MasterworkResonance
 {
-    // Legacy worker. The old situational thought is kept only for old save compatibility.
-    // Actual mood resonance is now stored as a normal Thought_Memory by ResonanceMoodMemoryUtility.
+    // Legacy для совместимости со старыми сохранениями.
+    // Фактический резонанс настроения теперь хранится как обычная Thought_Memory с помощью ResonanceMoodMemoryUtility.
     public class ThoughtWorker_ResonanceMood : ThoughtWorker
     {
         protected override ThoughtState CurrentStateInternal(Pawn p)
