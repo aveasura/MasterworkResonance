@@ -25,7 +25,7 @@ namespace MasterworkResonance
             { "DevResonance", "Dev resonance" },
             {
                 "DevResonanceFailed",
-                "Resonance was not applied: the item must be masterwork/legendary and must be a valid weapon or apparel item."
+                "Resonance was not applied: the item must be Masterwork/Legendary and have at least one enabled resonance for this item type."
             },
             {
                 "UnknownResonanceDescription",
@@ -39,6 +39,27 @@ namespace MasterworkResonance
             { "FromBaseValueSuffix", "from base value" },
             { "ResonantEquipment", "Resonant equipment" },
             { "ResonantEquipmentTooltip", "Equipped resonant gear improves mood." },
+            { "SettingsIntro", "Configure Masterwork Resonance rolls. Existing resonant items keep their rolled value; these settings affect future rolls." },
+            { "SettingsMultiplayerNote", "Multiplayer note: every player should use the same settings to keep deterministic crafting rolls identical." },
+            { "SettingsMasterworkChance", "Masterwork awakening chance" },
+            { "SettingsLegendaryChance", "Legendary awakening chance" },
+            { "SettingsResetAwakeningChances", "Restore default chances" },
+            { "SettingsEnableDevModeEnchantment", "Enable dev-mode resonance tools" },
+            { "SettingsEnableDevModeEnchantmentTooltip", "Adds a dev gizmo to generate or reroll resonance on valid items. Works only while RimWorld Dev mode is enabled." },
+            { "SettingsRollRanges", "Resonance roll ranges" },
+            { "SettingsResetAll", "Restore mod defaults" },
+            { "SettingsDefault", "default" },
+            { "SettingsEnabled", "Enabled" },
+            { "SettingsEnabledTooltip", "If disabled, this resonance will not roll on newly crafted items." },
+            { "SettingsWeight", "Roll weight" },
+            { "SettingsWeightHint", "default 1; minimum 0.1" },
+            { "SettingsMin", "Minimum" },
+            { "SettingsMax", "Maximum" },
+            { "SettingsDeveloperDefault", "default value" },
+            { "SettingsResetThisRoll", "Restore default resonance values" },
+            { "SettingsMeleeWeapon", "Melee weapons" },
+            { "SettingsRangedWeapon", "Ranged weapons" },
+            { "SettingsApparel", "Armor and apparel" },
 
             { "Enchant_MeleeDamage_Label", "Sharp" },
             { "Enchant_MeleeDamage_Description", "Increases melee weapon damage." },

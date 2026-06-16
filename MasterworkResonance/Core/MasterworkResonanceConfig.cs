@@ -10,17 +10,23 @@ namespace MasterworkResonance
         // Включает тестовые dev-инструменты резонанса:
         // - gizmo "Dev: generate/reroll resonance" на предмете;
         // - автоматическую выдачу резонанса предметам, созданным/изменённым через Dev Mode spawn/set quality.
-        public const bool EnableDevModeEnchantment = false;
+        // Сам флаг настраивается через ModSettings и дополнительно требует включённый RimWorld Dev Mode.
+        public static bool EnableDevModeEnchantment
+        {
+            get
+            {
+                MasterworkResonanceSettings settings = MasterworkResonanceMod.Settings;
+                return settings != null && settings.enableDevModeEnchantment;
+            }
+        }
 
         // MP-safe режим генерации резонанса после крафта.
         // Не использует Verse.Rand напрямую и не сдвигает общий RNG RimWorld.
         // Результат строится из стабильного seed предмета/рецепта/пешки.
         public const bool EnableDeterministicCraftRolls = true;
 
-        // Шанс пробуждения резонанса при крафте.
-        public const float MasterworkAwakeningChance = 0.40f;
-        public const float LegendaryAwakeningChance = 0.80f;
-
+        // Шансы пробуждения настраиваются через ModSettings.
+        // Дефолты находятся в MasterworkResonanceSettings.
         public static void LogMessage(string message)
         {
             if (EnableDebugLogging)

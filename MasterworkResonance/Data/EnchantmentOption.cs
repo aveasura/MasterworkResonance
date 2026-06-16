@@ -1,3 +1,4 @@
+using System;
 using Verse;
 
 namespace MasterworkResonance
@@ -35,6 +36,49 @@ namespace MasterworkResonance
         public string DisplayDescription
         {
             get { return ResonanceTranslation.EnchantmentDescription(Id, Description); }
+        }
+
+        public bool RollsWholeNumbers
+        {
+            get
+            {
+                return Format == EnchantValueFormat.PercentBonus
+                       || Format == EnchantValueFormat.PercentReduction
+                       || IsWholeNumberRollId(Id);
+            }
+        }
+
+        public float WholeNumberRollStep
+        {
+            get
+            {
+                if (!RollsWholeNumbers)
+                {
+                    return 0f;
+                }
+
+                if (Format == EnchantValueFormat.FlatBonus)
+                {
+                    return 1f;
+                }
+                
+                return 0.01f;
+            }
+        }
+
+        public float RoundToAllowedValue(float value)
+        {
+            if (RollsWholeNumbers)
+            {
+                return RoundToStep(value, WholeNumberRollStep);
+            }
+
+            if (Format == EnchantValueFormat.FlatBonus)
+            {
+                return RoundToStep(value, 0.1f);
+            }
+            
+            return RoundToStep(value, 0.01f);
         }
 
         public EnchantmentOption(
@@ -75,14 +119,23 @@ namespace MasterworkResonance
             {
                 return 1f;
             }
-
-            // Процентные резонансы роллятся от 1% до своего максимума
+            
             if (maxValue >= 0.01f)
             {
                 return 0.01f;
             }
 
             return maxValue;
+        }
+
+        public float EffectiveMinValue
+        {
+            get { return MasterworkResonanceMod.Settings.GetMinValue(this); }
+        }
+
+        public float EffectiveMaxValue
+        {
+            get { return MasterworkResonanceMod.Settings.GetMaxValue(this); }
         }
 
         public bool Matches(ThingDef def)
@@ -107,44 +160,54 @@ namespace MasterworkResonance
 
         public float RollValue()
         {
-            if (MaxValue <= MinValue)
+            float min = EffectiveMinValue;
+            float max = EffectiveMaxValue;
+            SanitizeRange(ref min, ref max);
+
+            if (RollsWholeNumbers)
             {
-                return MaxValue;
+                return RollWholeNumberValue(min, max, false, 0);
             }
 
-            // Настроение в игре читается лучше как целое число: +1, +2 ... +5.
-            if (Format == EnchantValueFormat.FlatBonus && Id != null && Id.Contains("Mood"))
+            if (max <= min)
             {
-                return Rand.RangeInclusive((int)MinValue, (int)MaxValue);
+                return max;
             }
 
-            return Rand.Range(MinValue, MaxValue);
+            return Rand.Range(min, max);
         }
-
 
         public float RollValueDeterministic(int seed)
         {
-            if (MaxValue <= MinValue)
+            float min = EffectiveMinValue;
+            float max = EffectiveMaxValue;
+            SanitizeRange(ref min, ref max);
+
+            if (RollsWholeNumbers)
             {
-                return MaxValue;
+                return RollWholeNumberValue(min, max, true, seed);
             }
 
-            if (Format == EnchantValueFormat.FlatBonus && Id != null && Id.Contains("Mood"))
+            if (max <= min)
             {
-                return ResonanceDeterministicRandom.RangeInclusive(seed, (int)MinValue, (int)MaxValue);
+                return max;
             }
 
-            return ResonanceDeterministicRandom.RangeFloat(seed, MinValue, MaxValue);
+            return ResonanceDeterministicRandom.RangeFloat(seed, min, max);
         }
 
         public float GetRollPercent(float rolledValue)
         {
-            if (MaxValue <= MinValue)
+            float min = EffectiveMinValue;
+            float max = EffectiveMaxValue;
+            SanitizeRange(ref min, ref max);
+
+            if (max <= min)
             {
                 return 1f;
             }
 
-            float normalized = (rolledValue - MinValue) / (MaxValue - MinValue);
+            float normalized = (rolledValue - min) / (max - min);
             if (normalized < 0f)
             {
                 return 0f;
@@ -162,6 +225,11 @@ namespace MasterworkResonance
         {
             if (Format == EnchantValueFormat.FlatBonus)
             {
+                if (RollsWholeNumbers && IsMoodRollId(Id))
+                {
+                    return "+" + RoundToInt(value).ToString();
+                }
+                
                 return "+" + value.ToString("0.0");
             }
 
@@ -175,22 +243,102 @@ namespace MasterworkResonance
 
         public string FormatRange()
         {
-            if (MaxValue <= MinValue)
+            float min = EffectiveMinValue;
+            float max = EffectiveMaxValue;
+            SanitizeRange(ref min, ref max);
+
+            if (max <= min)
             {
-                return FormatValue(MaxValue);
+                return FormatValue(max);
             }
 
             if (Format == EnchantValueFormat.PercentReduction)
             {
-                return "-" + (MinValue * 100f).ToString("0.#") + "% — -" + (MaxValue * 100f).ToString("0.#") + "%";
+                return "-" + (min * 100f).ToString("0.#") + "% — -" + (max * 100f).ToString("0.#") + "%";
             }
 
             if (Format == EnchantValueFormat.PercentBonus)
             {
-                return "+" + (MinValue * 100f).ToString("0.#") + "% — +" + (MaxValue * 100f).ToString("0.#") + "%";
+                return "+" + (min * 100f).ToString("0.#") + "% — +" + (max * 100f).ToString("0.#") + "%";
             }
 
-            return "+" + MinValue.ToString("0.0") + " — +" + MaxValue.ToString("0.0");
+            return "+" + min.ToString("0.0") + " — +" + max.ToString("0.0");
+        }
+
+        private float RollWholeNumberValue(float min, float max, bool deterministic, int seed)
+        {
+            float step = WholeNumberRollStep;
+            if (step <= 0f)
+            {
+                return max;
+            }
+
+            int minTick = RoundToInt(min / step);
+            int maxTick = RoundToInt(max / step);
+            if (maxTick < minTick)
+            {
+                maxTick = minTick;
+            }
+
+            int rolledTick = deterministic
+                ? ResonanceDeterministicRandom.RangeInclusive(seed, minTick, maxTick)
+                : Rand.RangeInclusive(minTick, maxTick);
+
+            return rolledTick * step;
+        }
+
+        private static bool IsWholeNumberRollId(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return false;
+            }
+
+            return IsMoodRollId(id)
+                   || id == "ApparelDodge"
+                   || id == "ApparelToughness"
+                   || id == "MeleeDodge"
+                   || id == "MeleeSkill"
+                   || id == "RangedSkill";
+        }
+
+
+        private static bool IsMoodRollId(string id)
+        {
+            return !string.IsNullOrEmpty(id) && id.Contains("Mood");
+        }
+
+        private static float RoundToStep(float value, float step)
+        {
+            if (step <= 0f)
+            {
+                return value;
+            }
+
+            return (float)(Math.Round(value / step, MidpointRounding.AwayFromZero) * step);
+        }
+
+        private static void SanitizeRange(ref float min, ref float max)
+        {
+            if (min < 0f)
+            {
+                min = 0f;
+            }
+
+            if (max < 0f)
+            {
+                max = 0f;
+            }
+
+            if (max < min)
+            {
+                max = min;
+            }
+        }
+
+        private static int RoundToInt(float value)
+        {
+            return (int)Math.Round(value, MidpointRounding.AwayFromZero);
         }
 
         public string FormatMultiplierExplanation(float value)

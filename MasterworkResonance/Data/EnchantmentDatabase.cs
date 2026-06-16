@@ -13,7 +13,7 @@ namespace MasterworkResonance
                 "Острый",
                 EnchantTarget.MeleeWeapon,
                 0.01f,
-                0.07f,
+                0.15f,
                 EnchantValueFormat.PercentBonus,
                 "Увеличивает урон ближнего оружия."),
 
@@ -22,7 +22,7 @@ namespace MasterworkResonance
                 "Проворный",
                 EnchantTarget.MeleeWeapon,
                 0.01f,
-                0.15f,
+                0.20f,
                 EnchantValueFormat.PercentReduction,
                 "Уменьшает время между ударами ближнего оружия."),
 
@@ -40,7 +40,7 @@ namespace MasterworkResonance
                 "Драчливый",
                 EnchantTarget.MeleeWeapon,
                 1f,
-                5f,
+                7f,
                 EnchantValueFormat.FlatBonus,
                 "Пока оружие экипировано, повышает шанс попасть в ближнем бою."),
 
@@ -49,25 +49,25 @@ namespace MasterworkResonance
                 "Дуэлянт",
                 EnchantTarget.MeleeWeapon,
                 1f,
-                4f,
+                7f,
                 EnchantValueFormat.FlatBonus,
                 "Пока оружие экипировано, даёт плоский бонус к уклонению в ближнем бою."),
 
             new EnchantmentOption(
                 "RangedDamage",
-                "Точный",
+                "Убойный",
                 EnchantTarget.RangedWeapon,
                 0.01f,
-                0.10f,
+                0.20f,
                 EnchantValueFormat.PercentBonus,
-                "Увеличивает урон дальнобойного оружия."),
+                "Повышает поражающую силу и бронепробитие дальнобойного оружия."),
 
             new EnchantmentOption(
                 "RangedCooldown",
                 "Быстрый",
                 EnchantTarget.RangedWeapon,
-                0.01f,
-                0.25f,
+                0.10f,
+                0.60f,
                 EnchantValueFormat.PercentReduction,
                 "Уменьшает время между выстрелами."),
 
@@ -75,8 +75,8 @@ namespace MasterworkResonance
                 "RangedWarmup",
                 "Прикладистый",
                 EnchantTarget.RangedWeapon,
-                0.01f,
-                0.25f,
+                0.10f,
+                0.50f,
                 EnchantValueFormat.PercentReduction,
                 "Уменьшает время прицеливания оружия."),
 
@@ -94,7 +94,7 @@ namespace MasterworkResonance
                 "Прицельный",
                 EnchantTarget.RangedWeapon,
                 1f,
-                5f,
+                7f,
                 EnchantValueFormat.FlatBonus,
                 "Пока оружие экипировано, повышает точность стрельбы носителя."),
 
@@ -103,7 +103,7 @@ namespace MasterworkResonance
                 "Лёгкий",
                 EnchantTarget.Apparel,
                 0.01f,
-                0.07f,
+                0.10f,
                 EnchantValueFormat.PercentBonus,
                 "Пока предмет надет, увеличивает скорость передвижения носителя."),
 
@@ -112,7 +112,7 @@ namespace MasterworkResonance
                 "Укреплённый",
                 EnchantTarget.Apparel,
                 0.01f,
-                0.10f,
+                0.20f,
                 EnchantValueFormat.PercentBonus,
                 "Укрепляет защиту предмета от острого и тупого урона."),
 
@@ -120,8 +120,8 @@ namespace MasterworkResonance
                 "ApparelDurability",
                 "Прочный",
                 EnchantTarget.Apparel,
-                0.01f,
-                1.00f,
+                0.30f,
+                4.00f,
                 EnchantValueFormat.PercentBonus,
                 "Увеличивает максимальную прочность предмета."),
 
@@ -139,7 +139,7 @@ namespace MasterworkResonance
                 "Стойкий",
                 EnchantTarget.Apparel,
                 0.01f,
-                0.07f,
+                0.10f,
                 EnchantValueFormat.PercentBonus,
                 "Пока предмет надет, снижает получаемый урон."),
 
@@ -148,7 +148,7 @@ namespace MasterworkResonance
                 "Гибкий",
                 EnchantTarget.Apparel,
                 1f,
-                7f,
+                8f,
                 EnchantValueFormat.FlatBonus,
                 "Пока предмет надет, даёт плоский бонус к уклонению в ближнем бою."),
 
@@ -168,10 +168,26 @@ namespace MasterworkResonance
                 "Обезболивающий",
                 EnchantTarget.Apparel,
                 0.01f,
-                0.20f,
+                0.25f,
                 EnchantValueFormat.PercentReduction,
                 "Пока предмет надет, снижает боль носителя. Складывается с другими такими предметами вплоть до 100%."),
         };
+
+        public static List<EnchantmentOption> GetAllOptions(bool includeInactive = false)
+        {
+            List<EnchantmentOption> result = new List<EnchantmentOption>();
+
+            for (int i = 0; i < AllOptions.Count; i++)
+            {
+                EnchantmentOption option = AllOptions[i];
+                if (option != null && (includeInactive || option.CanRoll))
+                {
+                    result.Add(option);
+                }
+            }
+
+            return result;
+        }
 
         public static List<EnchantmentOption> GetOptionsFor(ThingDef def)
         {
@@ -180,7 +196,7 @@ namespace MasterworkResonance
             for (int i = 0; i < AllOptions.Count; i++)
             {
                 EnchantmentOption option = AllOptions[i];
-                if (option.CanRoll && option.Matches(def))
+                if (option.CanRoll && option.Matches(def) && MasterworkResonanceMod.Settings.GetRollWeight(option) > 0f)
                 {
                     result.Add(option);
                 }

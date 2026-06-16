@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
+
 <LanguageData>
     <MWR_ResonancePrefix>Резонанс</MWR_ResonancePrefix>
     <MWR_CreatedResonantItem>Создан резонирующий предмет</MWR_CreatedResonantItem>
-    <MWR_ResonantWarmupStatLabel>Изготовка с резонансом</MWR_ResonantWarmupStatLabel>
+    <MWR_ResonantWarmupStatLabel>Прицеливание с резонансом</MWR_ResonantWarmupStatLabel>
     <MWR_SecondsAbbrev>сек</MWR_SecondsAbbrev>
-    <MWR_ResonantWarmupStatDescription>Время изготовки этого оружия с учётом резонанса.
+    <MWR_ResonantWarmupStatDescription>Время подготовки этого оружия к выстрелу с учётом резонанса.
     </MWR_ResonantWarmupStatDescription>
     <MWR_DevGenerateResonance>Dev: создать резонанс</MWR_DevGenerateResonance>
     <MWR_DevRerollResonance>Dev: перероллить резонанс</MWR_DevRerollResonance>
@@ -12,7 +13,8 @@
         или брони качества шедевр/легендарное.
     </MWR_DevGenerateResonanceDescription>
     <MWR_DevResonance>Dev-резонанс</MWR_DevResonance>
-    <MWR_DevResonanceFailed>Резонанс не выдан: нужен предмет качества шедевр/легенда и подходящий тип оружия/одежды.
+    <MWR_DevResonanceFailed>Резонанс не выдан: нужен предмет качества шедевр/легенда и хотя бы один включённый резонанс
+        для этого типа предмета.
     </MWR_DevResonanceFailed>
     <MWR_UnknownResonanceDescription>Неизвестный резонанс. Возможно, этот предмет был создан старой версией мода.
     </MWR_UnknownResonanceDescription>
@@ -26,39 +28,70 @@
     <MWR_ResonantEquipmentTooltip>Экипированное резонирующее снаряжение улучшает настроение.
     </MWR_ResonantEquipmentTooltip>
 
+    <MWR_SettingsIntro>Настройки роллов Masterwork Resonance. Уже созданные резонирующие предметы сохраняют свои
+        значения. Эти настройки влияют только на будущие роллы.
+    </MWR_SettingsIntro>
+    <MWR_SettingsMultiplayerNote>Важно для мультиплеера: у всех игроков должны быть одинаковые настройки, чтобы
+        детерминированные роллы крафта совпадали.
+    </MWR_SettingsMultiplayerNote>
+    <MWR_SettingsMasterworkChance>Шанс пробуждения шедевра</MWR_SettingsMasterworkChance>
+    <MWR_SettingsLegendaryChance>Шанс пробуждения легендарного предмета</MWR_SettingsLegendaryChance>
+    <MWR_SettingsResetAwakeningChances>Вернуть шансы по умолчанию</MWR_SettingsResetAwakeningChances>
+    <MWR_SettingsEnableDevModeEnchantment>Включить dev-переролл резонанса</MWR_SettingsEnableDevModeEnchantment>
+    <MWR_SettingsEnableDevModeEnchantmentTooltip>Добавляет dev-кнопку для создания или переролла резонанса на подходящих
+        предметах. Работает только при включённом Dev Mode в RimWorld.
+    </MWR_SettingsEnableDevModeEnchantmentTooltip>
+    <MWR_SettingsRollRanges>Диапазоны роллов резонанса</MWR_SettingsRollRanges>
+    <MWR_SettingsResetAll>Вернуть настройки мода по умолчанию</MWR_SettingsResetAll>
+    <MWR_SettingsDefault>по умолчанию</MWR_SettingsDefault>
+    <MWR_SettingsEnabled>Включён</MWR_SettingsEnabled>
+    <MWR_SettingsEnabledTooltip>Если выключить, этот резонанс больше не будет выпадать на новых созданных предметах.
+    </MWR_SettingsEnabledTooltip>
+    <MWR_SettingsWeight>Вес выпадения</MWR_SettingsWeight>
+    <MWR_SettingsWeightHint>по умолчанию 1; минимум 0.1</MWR_SettingsWeightHint>
+    <MWR_SettingsMin>Минимум</MWR_SettingsMin>
+    <MWR_SettingsMax>Максимум</MWR_SettingsMax>
+    <MWR_SettingsDeveloperDefault>по умолчанию</MWR_SettingsDeveloperDefault>
+    <MWR_SettingsResetThisRoll>Вернуть этот резонанс по умолчанию</MWR_SettingsResetThisRoll>
+    <MWR_SettingsMeleeWeapon>Оружие ближнего боя</MWR_SettingsMeleeWeapon>
+    <MWR_SettingsRangedWeapon>Дальнобойное оружие</MWR_SettingsRangedWeapon>
+    <MWR_SettingsApparel>Броня и одежда</MWR_SettingsApparel>
+
     <MWR_Enchant_MeleeDamage_Label>Острый</MWR_Enchant_MeleeDamage_Label>
-    <MWR_Enchant_MeleeDamage_Description>Увеличивает урон ближнего оружия.</MWR_Enchant_MeleeDamage_Description>
+    <MWR_Enchant_MeleeDamage_Description>Увеличивает урон оружия ближнего боя.</MWR_Enchant_MeleeDamage_Description>
     <MWR_Enchant_MeleeCooldown_Label>Проворный</MWR_Enchant_MeleeCooldown_Label>
-    <MWR_Enchant_MeleeCooldown_Description>Уменьшает время между ударами ближнего оружия.
+    <MWR_Enchant_MeleeCooldown_Description>Уменьшает время между ударами оружия ближнего боя.
     </MWR_Enchant_MeleeCooldown_Description>
     <MWR_Enchant_MeleeMood_Label>Воодушевляющий</MWR_Enchant_MeleeMood_Label>
     <MWR_Enchant_MeleeMood_Description>Пока оружие экипировано, повышает настроение носителя.
     </MWR_Enchant_MeleeMood_Description>
     <MWR_Enchant_MeleeSkill_Label>Драчливый</MWR_Enchant_MeleeSkill_Label>
-    <MWR_Enchant_MeleeSkill_Description>Пока оружие экипировано, повышает шанс попасть в ближнем бою.
+    <MWR_Enchant_MeleeSkill_Description>Пока оружие экипировано, даёт плоский бонус к шансу попадания в ближнем бою.
     </MWR_Enchant_MeleeSkill_Description>
     <MWR_Enchant_MeleeDodge_Label>Дуэлянт</MWR_Enchant_MeleeDodge_Label>
     <MWR_Enchant_MeleeDodge_Description>Пока оружие экипировано, даёт плоский бонус к уклонению в ближнем бою.
     </MWR_Enchant_MeleeDodge_Description>
 
-    <MWR_Enchant_RangedDamage_Label>Точный</MWR_Enchant_RangedDamage_Label>
-    <MWR_Enchant_RangedDamage_Description>Увеличивает урон дальнобойного оружия.</MWR_Enchant_RangedDamage_Description>
+    <MWR_Enchant_RangedDamage_Label>Убойный</MWR_Enchant_RangedDamage_Label>
+    <MWR_Enchant_RangedDamage_Description>Повышает поражающую силу и бронепробитие дальнобойного оружия.
+    </MWR_Enchant_RangedDamage_Description>
     <MWR_Enchant_RangedCooldown_Label>Быстрый</MWR_Enchant_RangedCooldown_Label>
     <MWR_Enchant_RangedCooldown_Description>Уменьшает время между выстрелами.</MWR_Enchant_RangedCooldown_Description>
     <MWR_Enchant_RangedWarmup_Label>Прикладистый</MWR_Enchant_RangedWarmup_Label>
-    <MWR_Enchant_RangedWarmup_Description>Уменьшает время прицеливания оружия.</MWR_Enchant_RangedWarmup_Description>
+    <MWR_Enchant_RangedWarmup_Description>Уменьшает время подготовки оружия к выстрелу.
+    </MWR_Enchant_RangedWarmup_Description>
     <MWR_Enchant_RangedMood_Label>Собранный</MWR_Enchant_RangedMood_Label>
     <MWR_Enchant_RangedMood_Description>Пока оружие экипировано, повышает настроение носителя.
     </MWR_Enchant_RangedMood_Description>
     <MWR_Enchant_RangedSkill_Label>Прицельный</MWR_Enchant_RangedSkill_Label>
-    <MWR_Enchant_RangedSkill_Description>Пока оружие экипировано, повышает точность стрельбы носителя.
+    <MWR_Enchant_RangedSkill_Description>Пока оружие экипировано, даёт плоский бонус к точности стрельбы.
     </MWR_Enchant_RangedSkill_Description>
 
     <MWR_Enchant_ApparelMoveSpeed_Label>Лёгкий</MWR_Enchant_ApparelMoveSpeed_Label>
     <MWR_Enchant_ApparelMoveSpeed_Description>Пока предмет надет, увеличивает скорость передвижения носителя.
     </MWR_Enchant_ApparelMoveSpeed_Description>
     <MWR_Enchant_ApparelArmor_Label>Укреплённый</MWR_Enchant_ApparelArmor_Label>
-    <MWR_Enchant_ApparelArmor_Description>Укрепляет защиту предмета от острого и тупого урона.
+    <MWR_Enchant_ApparelArmor_Description>Улучшает защитные показатели предмета.
     </MWR_Enchant_ApparelArmor_Description>
     <MWR_Enchant_ApparelDurability_Label>Прочный</MWR_Enchant_ApparelDurability_Label>
     <MWR_Enchant_ApparelDurability_Description>Увеличивает максимальную прочность предмета.
@@ -77,7 +110,8 @@
     <MWR_Enchant_ApparelConsciousness_Description>Удалённый резонанс. Больше не роллится и не даёт эффекта.
     </MWR_Enchant_ApparelConsciousness_Description>
     <MWR_Enchant_ApparelPainReduction_Label>Обезболивающий</MWR_Enchant_ApparelPainReduction_Label>
-    <MWR_Enchant_ApparelPainReduction_Description>Пока предмет надет, снижает боль носителя на 1%–20%. Складывается с
-        другими предметами с этим резонансом вплоть до 100%.
+    <MWR_Enchant_ApparelPainReduction_Description>Пока предмет надет, снижает боль носителя. Складывается с другими
+        предметами с этим резонансом вплоть до 100%.
     </MWR_Enchant_ApparelPainReduction_Description>
+
 </LanguageData>

@@ -28,7 +28,7 @@ namespace MasterworkResonance
                 return;
             }
 
-            comp.TryGenerate(null, false);
+            comp.TryGenerateDev(null, false);
         }
     }
 }

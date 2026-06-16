@@ -82,6 +82,8 @@
         <Compile Include="GameComponents\GameComponent_MasterworkResonanceMood.cs"/>
         <Compile Include="Hediffs\Hediff_ResonancePainReduction.cs"/>
         <Compile Include="Core\MasterworkResonanceConfig.cs"/>
+        <Compile Include="Settings\MasterworkResonanceMod.cs"/>
+        <Compile Include="Settings\MasterworkResonanceSettings.cs"/>
         <Compile Include="Patches\Core\Patch_PlayDataLoader_DoPlayLoad.cs"/>
         <Compile Include="Patches\Equipment\Patch_Apparel_NotifyEquipped.cs"/>
         <Compile Include="Patches\Equipment\Patch_PawnApparelTracker_Notify.cs"/>

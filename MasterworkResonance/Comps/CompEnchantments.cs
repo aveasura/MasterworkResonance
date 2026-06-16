@@ -54,15 +54,20 @@ namespace MasterworkResonance
 
         public bool TryGenerate(Pawn worker = null, bool showMessage = false)
         {
-            return TryGenerateInternal(worker, showMessage, false, 0);
+            return TryGenerateInternal(worker, showMessage, false, 0, false);
         }
 
         public bool TryGenerateDeterministic(Pawn worker, bool showMessage, int seed)
         {
-            return TryGenerateInternal(worker, showMessage, true, seed);
+            return TryGenerateInternal(worker, showMessage, true, seed, false);
         }
 
-        private bool TryGenerateInternal(Pawn worker, bool showMessage, bool deterministic, int seed)
+        public bool TryGenerateDev(Pawn worker = null, bool showMessage = false)
+        {
+            return TryGenerateInternal(worker, showMessage, false, 0, true);
+        }
+
+        private bool TryGenerateInternal(Pawn worker, bool showMessage, bool deterministic, int seed, bool forceAwakening)
         {
             if (HasEnchantment)
             {
@@ -86,7 +91,7 @@ namespace MasterworkResonance
                 return false;
             }
 
-            if (!RollAwakeningChance(quality, deterministic, seed))
+            if (!forceAwakening && !RollAwakeningChance(quality, deterministic, seed))
             {
                 return false;
             }
@@ -97,14 +102,11 @@ namespace MasterworkResonance
                 return false;
             }
 
-            int selectedIndex = deterministic
-                ? ResonanceDeterministicRandom.Range(
-                    ResonanceDeterministicRandom.Combine(seed, 1001),
-                    0,
-                    options.Count)
-                : Rand.Range(0, options.Count);
-
-            EnchantmentOption selected = options[selectedIndex];
+            EnchantmentOption selected = SelectWeightedOption(options, deterministic, ResonanceDeterministicRandom.Combine(seed, 1001));
+            if (selected == null)
+            {
+                return false;
+            }
 
             value = deterministic
                 ? selected.RollValueDeterministic(ResonanceDeterministicRandom.Combine(seed, 2001))
@@ -149,15 +151,51 @@ namespace MasterworkResonance
         {
             if (quality == QualityCategory.Legendary)
             {
-                return MasterworkResonanceConfig.LegendaryAwakeningChance;
+                return MasterworkResonanceMod.Settings.GetAwakeningChance(quality);
             }
 
             if (quality == QualityCategory.Masterwork)
             {
-                return MasterworkResonanceConfig.MasterworkAwakeningChance;
+                return MasterworkResonanceMod.Settings.GetAwakeningChance(quality);
             }
 
             return 0f;
+        }
+
+        private static EnchantmentOption SelectWeightedOption(List<EnchantmentOption> options, bool deterministic, int seed)
+        {
+            if (options == null || options.Count == 0)
+            {
+                return null;
+            }
+
+            float totalWeight = 0f;
+            for (int i = 0; i < options.Count; i++)
+            {
+                totalWeight += MasterworkResonanceMod.Settings.GetRollWeight(options[i]);
+            }
+
+            if (totalWeight <= 0f)
+            {
+                return null;
+            }
+
+            float roll = deterministic
+                ? ResonanceDeterministicRandom.StableRandom01(seed) * totalWeight
+                : Rand.Value * totalWeight;
+
+            float cursor = 0f;
+            for (int i = 0; i < options.Count; i++)
+            {
+                EnchantmentOption option = options[i];
+                cursor += MasterworkResonanceMod.Settings.GetRollWeight(option);
+                if (roll < cursor)
+                {
+                    return option;
+                }
+            }
+
+            return options[options.Count - 1];
         }
 
         public bool TryGenerateAfterCraft(Pawn worker)
@@ -210,9 +248,7 @@ namespace MasterworkResonance
             {
                 return null;
             }
-
-            // Цвет нужен только в инспект-панели предмета.
-            // Сообщения/InfoCard оставляем обычным текстом, чтобы не получить сырые rich-text теги там, где они не нужны.
+            
             return ResonanceTranslation.Translate("ResonancePrefix", "Резонанс") + ": " + GetColoredDisplayLine();
         }
 
@@ -290,7 +326,7 @@ namespace MasterworkResonance
             {
                 ClearForDevReroll();
 
-                if (TryGenerate(null, false))
+                if (TryGenerateDev(null, false))
                 {
                     Messages.Message(
                         ResonanceTranslation.Translate("DevResonance", "Dev resonance") + ": " +
@@ -358,9 +394,11 @@ namespace MasterworkResonance
         {
             EnchantmentOption option = EnchantmentDatabase.GetById(enchantmentId);
 
-            float normalizedRoll = option != null
-                ? option.GetRollPercent(value)
-                : rollPercent;
+            float normalizedRoll = rollPercent;
+            if (normalizedRoll <= 0f && option != null)
+            {
+                normalizedRoll = option.GetRollPercent(value);
+            }
 
             if (normalizedRoll < 0f)
             {
