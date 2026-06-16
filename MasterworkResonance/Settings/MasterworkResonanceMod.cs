@@ -139,12 +139,12 @@ namespace MasterworkResonance
             Listing_Standard listing = new Listing_Standard();
             listing.Begin(innerRect);
 
-            DrawAwakeningChance(listing,
+            DrawAwakeningChance(listing, innerRect.width,
                 ResonanceTranslation.Translate("SettingsMasterworkChance", "Masterwork awakening chance"),
                 ref Settings.masterworkAwakeningChance,
                 MasterworkResonanceSettings.DefaultMasterworkAwakeningChance);
 
-            DrawAwakeningChance(listing,
+            DrawAwakeningChance(listing, innerRect.width,
                 ResonanceTranslation.Translate("SettingsLegendaryChance", "Legendary awakening chance"),
                 ref Settings.legendaryAwakeningChance,
                 MasterworkResonanceSettings.DefaultLegendaryAwakeningChance);
@@ -201,8 +201,8 @@ namespace MasterworkResonance
             float sliderMax = GetSliderMax(option);
 
             Text.Font = GameFont.Small;
-            listing.Label(option.DisplayLabel + " — " + option.FormatRange());
-            listing.Label(CleanForLabel(option.DisplayDescription));
+            ListingLabel(listing, option.DisplayLabel + " — " + option.FormatRange(), innerRect.width);
+            ListingLabel(listing, option.DisplayDescription, innerRect.width);
 
             listing.CheckboxLabeled(
                 ResonanceTranslation.Translate("SettingsEnabled", "Enabled"),
@@ -210,17 +210,17 @@ namespace MasterworkResonance
                 ResonanceTranslation.Translate("SettingsEnabledTooltip", "If disabled, this resonance will not roll on newly crafted items."));
             Settings.SetOptionEnabled(option, enabled);
 
-            listing.Label(ResonanceTranslation.Translate("SettingsWeight", "Roll weight") + ": " + weight.ToString("0.#") + " (" +
-                          ResonanceTranslation.Translate("SettingsWeightHint", "default 1; minimum 0.1") + ")");
+            ListingLabel(listing, ResonanceTranslation.Translate("SettingsWeight", "Roll weight") + ": " + weight.ToString("0.#") + " (" +
+                         ResonanceTranslation.Translate("SettingsWeightHint", "default 1; minimum 0.1") + ")", innerRect.width);
             weight = listing.Slider(weight, MasterworkResonanceSettings.MinOptionWeight, MasterworkResonanceSettings.MaxOptionWeight);
             Settings.SetRollWeight(option, Round(weight, 0.1f));
 
             listing.Gap(4f);
-            listing.Label(ResonanceTranslation.Translate("SettingsMin", "Minimum") + ": " + FormatSettingValue(option, min));
+            ListingLabel(listing, ResonanceTranslation.Translate("SettingsMin", "Minimum") + ": " + FormatSettingValue(option, min), innerRect.width);
             min = listing.Slider(min, 0f, sliderMax);
             min = RoundForOption(option, min);
 
-            listing.Label(ResonanceTranslation.Translate("SettingsMax", "Maximum") + ": " + FormatSettingValue(option, max));
+            ListingLabel(listing, ResonanceTranslation.Translate("SettingsMax", "Maximum") + ": " + FormatSettingValue(option, max), innerRect.width);
             max = listing.Slider(max, 0f, sliderMax);
             max = RoundForOption(option, max);
 
@@ -254,12 +254,12 @@ namespace MasterworkResonance
             listing.Begin(innerRect);
 
             Text.Font = GameFont.Medium;
-            listing.Label(ResonanceTranslation.Translate("SettingsFeedbackTitle", "Feedback"));
+            ListingLabel(listing, ResonanceTranslation.Translate("SettingsFeedbackTitle", "Feedback"), innerRect.width);
             Text.Font = GameFont.Small;
 
-            listing.Label(CleanForLabel(ResonanceTranslation.Translate(
+            ListingLabel(listing, ResonanceTranslation.Translate(
                 "SettingsFeedbackText",
-                "Have an idea, balance suggestion, or bug report? Leave a comment on the Steam Workshop page.")));
+                "Have an idea, balance suggestion, or bug report? Leave a comment on the Steam Workshop page."), innerRect.width);
 
             listing.Gap(4f);
             if (listing.ButtonText(ResonanceTranslation.Translate("SettingsOpenWorkshopPage", "Open Workshop page")))
@@ -304,16 +304,29 @@ namespace MasterworkResonance
             return new Rect(rect.x + padding, rect.y + padding, rect.width - padding * 2f, rect.height - padding * 2f);
         }
 
-        private static void DrawAwakeningChance(Listing_Standard listing, string label, ref float chance, float defaultValue)
+        private static void ListingLabel(Listing_Standard listing, string label, float width)
+        {
+            label = CleanForLabel(label);
+            if (string.IsNullOrEmpty(label))
+            {
+                return;
+            }
+
+            float height = Text.CalcHeight(label, width);
+            Rect rect = listing.GetRect(height);
+            Widgets.Label(rect, label);
+        }
+
+        private static void DrawAwakeningChance(Listing_Standard listing, float width, string label, ref float chance, float defaultValue)
         {
             chance = Clamp01(chance);
             float percent = chance * 100f;
 
             percent = Round(percent, 1f);
 
-            listing.Label(label + ": " + percent.ToString("0") + "% " +
-                          ResonanceTranslation.Translate("SettingsDefault", "default") + " " +
-                          (defaultValue * 100f).ToString("0") + "%");
+            ListingLabel(listing, label + ": " + percent.ToString("0") + "% " +
+                         ResonanceTranslation.Translate("SettingsDefault", "default") + " " +
+                         (defaultValue * 100f).ToString("0") + "%", width);
             percent = listing.Slider(percent, 0f, 100f);
             chance = Clamp01(Round(percent, 1f) / 100f);
         }
