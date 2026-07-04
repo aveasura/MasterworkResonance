@@ -12,12 +12,12 @@ namespace MasterworkResonance
         public const float DefaultOptionWeight = 1f;
         public const float MinOptionWeight = 0.1f;
         public const float MaxOptionWeight = 10f;
-        public const float DefaultRaiderGearQualityUpgradeChance = 0.10f;
+        public const float DefaultRaiderGearQualityUpgradeChance = 0.50f;
         public const float DefaultRaiderGearLegendaryChance = 0.10f;
-        public const float DefaultRaiderResonanceChanceMultiplier = 1f;
+        public const float DefaultRaiderResonanceChanceMultiplier = 1.5f;
         public const float MinRaiderResonanceChanceMultiplier = 0f;
         public const float MaxRaiderResonanceChanceMultiplier = 5f;
-        public const float DefaultRaiderBiocodeChance = 0.10f;
+        public const float DefaultRaiderBiocodeChance = 0.60f;
 
         public float masterworkAwakeningChance = DefaultMasterworkAwakeningChance;
         public float legendaryAwakeningChance = DefaultLegendaryAwakeningChance;

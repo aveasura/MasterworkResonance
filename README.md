@@ -18,7 +18,10 @@ When your colonists craft a **Masterwork** or **Legendary** weapon, armor or app
 * Mood resonance displayed in the pawn Needs tab
 * English and Russian localization
 * RimWorld 1.5 / 1.6 support
-* Multiplayer-friendly deterministic craft rolls
+* Multiplayer-friendly deterministic rolls
+* Optional raider gear quality upgrades
+* Optional raider resonance rolls
+* Optional biocoded resonant raider weapons
 
 ## Awakening Chances
 
@@ -29,7 +32,25 @@ When your colonists craft a **Masterwork** or **Legendary** weapon, armor or app
 
 If resonance does not awaken, the item remains a normal Masterwork or Legendary item.
 
-Existing items are not enchanted retroactively. Only newly crafted items can awaken resonance.
+Existing items are not enchanted retroactively.
+
+By default, only newly crafted items can awaken resonance.
+Optional raider settings can also allow hostile raiders to generate with resonant equipment.
+
+## Raider Equipment Options
+
+Optional raider equipment settings can be enabled in the in-game mod settings menu.
+
+When enabled, hostile raiders can receive:
+
+* Upgraded Masterwork or Legendary gear
+* Resonance effects on eligible Masterwork or Legendary equipment
+* Biocoded resonant weapons
+
+These options only affect hostile raiders. Traders, guests, allies, and colonists are not affected.
+
+Raider equipment options are disabled by default. Their chances can be configured separately in the mod settings.
+
 
 ## Possible Resonance Effects
 
@@ -84,9 +105,13 @@ The mod is designed to be compatible with other mods that create weapons, armor,
 
 ## Multiplayer
 
-Resonance generation uses deterministic craft rolls.
+Resonance generation uses deterministic rolls.
 
 Basic multiplayer crafting tests were performed without desyncs, and generated resonance values matched between players.
+
+Raider equipment options also use deterministic rolls, but all players should use the same Masterwork Resonance mod settings.
+
+Changing mod settings during an active multiplayer session is not recommended.
 
 ## Supported Versions
 
