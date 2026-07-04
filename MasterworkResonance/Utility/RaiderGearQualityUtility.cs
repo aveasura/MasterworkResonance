@@ -79,7 +79,8 @@ namespace MasterworkResonance
             return true;
         }
 
-        private static void TryUpgradeThing(ThingWithComps thing, Pawn pawn, PawnGenerationRequest request, int slotIndex)
+        private static void TryUpgradeThing(ThingWithComps thing, Pawn pawn, PawnGenerationRequest request,
+            int slotIndex)
         {
             if (thing == null || thing.def == null || !IsEligibleGear(thing.def))
             {

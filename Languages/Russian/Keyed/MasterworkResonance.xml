@@ -72,6 +72,14 @@
     <MWR_SettingsRaiderResonanceChanceMultiplier>Множитель шанса резонанса</MWR_SettingsRaiderResonanceChanceMultiplier>
     <MWR_SettingsResetRaiderResonance>Вернуть настройки резонанса рейдеров по умолчанию</MWR_SettingsResetRaiderResonance>
 
+    <MWR_SettingsRaiderBiocodeTitle>Биокод резонансного оружия</MWR_SettingsRaiderBiocodeTitle>
+    <MWR_SettingsRaiderBiocodeDescription>Опциональная экспериментальная функция. Только резонансное оружие, сгенерированное у враждебных рейдеров, может стать биокодированным на этого рейдера. По умолчанию выключено.</MWR_SettingsRaiderBiocodeDescription>
+    <MWR_SettingsEnableRaiderBiocode>Разрешить биокод резонансного оружия рейдеров</MWR_SettingsEnableRaiderBiocode>
+    <MWR_SettingsEnableRaiderBiocodeTooltip>Если включено, сгенерированное резонансное оружие враждебных рейдеров может стать биокодированным на этого рейдера. Нерезонансное оружие, одежда, торговцы, гости и союзники игнорируются.</MWR_SettingsEnableRaiderBiocodeTooltip>
+    <MWR_SettingsRaiderBiocodeChance>Шанс биокода</MWR_SettingsRaiderBiocodeChance>
+    <MWR_SettingsResetRaiderBiocode>Вернуть настройки биокода рейдеров по умолчанию</MWR_SettingsResetRaiderBiocode>
+
+
     <MWR_Enchant_MeleeDamage_Label>Острый</MWR_Enchant_MeleeDamage_Label>
     <MWR_Enchant_MeleeDamage_Description>Увеличивает урон оружия ближнего боя.</MWR_Enchant_MeleeDamage_Description>
     <MWR_Enchant_MeleeCooldown_Label>Проворный</MWR_Enchant_MeleeCooldown_Label>

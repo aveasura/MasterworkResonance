@@ -29,6 +29,7 @@ namespace MasterworkResonance
         {
             RaiderGearQualityUtility.TryUpgradeGearForPawn(pawn, request);
             RaiderResonanceUtility.TryApplyResonanceForPawn(pawn, request);
+            RaiderBiocodeUtility.TryBiocodeResonantWeaponsForPawn(pawn, request);
         }
     }
 }

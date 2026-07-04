@@ -16,6 +16,7 @@ namespace MasterworkResonance
         private const float ChanceBlockHeight = 222f;
         private const float RaiderGearQualityBlockHeight = 258f;
         private const float RaiderResonanceBlockHeight = 222f;
+        private const float RaiderBiocodeBlockHeight = 222f;
         private const float OptionCardHeight = 312f;
         private const float TargetHeaderHeight = 34f;
         private const float FeedbackBlockHeight = 148f;
@@ -62,6 +63,7 @@ namespace MasterworkResonance
             DrawAwakeningSettings(viewRect, ref curY);
             DrawRaiderGearQualitySettings(viewRect, ref curY);
             DrawRaiderResonanceSettings(viewRect, ref curY);
+            DrawRaiderBiocodeSettings(viewRect, ref curY);
             DrawSectionTitle(viewRect, ref curY, ResonanceTranslation.Translate("SettingsRollRanges", "Resonance roll ranges"));
 
             EnchantTarget? lastTarget = null;
@@ -107,7 +109,7 @@ namespace MasterworkResonance
                 }
             }
             
-            return 84f + ChanceBlockHeight + SectionGap + RaiderGearQualityBlockHeight + SectionGap + RaiderResonanceBlockHeight + SectionGap + 44f
+            return 84f + ChanceBlockHeight + SectionGap + RaiderGearQualityBlockHeight + SectionGap + RaiderResonanceBlockHeight + SectionGap + RaiderBiocodeBlockHeight + SectionGap + 44f
                    + targetHeaders * TargetHeaderHeight
                    + options.Count * (OptionCardHeight + CardGap)
                    + FeedbackBlockHeight + SectionGap
@@ -263,6 +265,48 @@ namespace MasterworkResonance
 
             listing.End();
             curY += RaiderResonanceBlockHeight + SectionGap;
+        }
+
+        private static void DrawRaiderBiocodeSettings(Rect viewRect, ref float curY)
+        {
+            Rect cardRect = new Rect(0f, curY, viewRect.width, RaiderBiocodeBlockHeight);
+            Widgets.DrawMenuSection(cardRect);
+
+            Rect innerRect = Contract(cardRect, CardPadding);
+            Listing_Standard listing = new Listing_Standard();
+            listing.Begin(innerRect);
+
+            Text.Font = GameFont.Medium;
+            ListingLabel(listing, ResonanceTranslation.Translate("SettingsRaiderBiocodeTitle", "Biocoded resonant weapons"), innerRect.width);
+            Text.Font = GameFont.Small;
+
+            ListingLabel(listing, ResonanceTranslation.Translate(
+                "SettingsRaiderBiocodeDescription",
+                "Optional experimental feature. Only resonant weapons generated on hostile raiders can become biocoded to that raider. Disabled by default."), innerRect.width);
+
+            bool enableRaiderBiocode = Settings.enableRaiderBiocode;
+            listing.CheckboxLabeled(
+                ResonanceTranslation.Translate("SettingsEnableRaiderBiocode", "Enable biocode on resonant raider weapons"),
+                ref enableRaiderBiocode,
+                ResonanceTranslation.Translate(
+                    "SettingsEnableRaiderBiocodeTooltip",
+                    "When enabled, hostile raiders can have generated resonant weapons biocoded to them. Non-resonant weapons, apparel, traders, guests and allies are ignored."));
+            Settings.enableRaiderBiocode = enableRaiderBiocode;
+
+            DrawAwakeningChance(listing, innerRect.width,
+                ResonanceTranslation.Translate("SettingsRaiderBiocodeChance", "Biocode chance"),
+                ref Settings.raiderBiocodeChance,
+                MasterworkResonanceSettings.DefaultRaiderBiocodeChance);
+
+            if (listing.ButtonText(ResonanceTranslation.Translate(
+                    "SettingsResetRaiderBiocode",
+                    "Restore raider biocode defaults")))
+            {
+                Settings.ResetRaiderBiocode();
+            }
+
+            listing.End();
+            curY += RaiderBiocodeBlockHeight + SectionGap;
         }
 
         private static void DrawSectionTitle(Rect viewRect, ref float curY, string label)

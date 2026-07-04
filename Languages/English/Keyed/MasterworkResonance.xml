@@ -72,6 +72,14 @@
     <MWR_SettingsRaiderResonanceChanceMultiplier>Resonance chance multiplier</MWR_SettingsRaiderResonanceChanceMultiplier>
     <MWR_SettingsResetRaiderResonance>Restore raider resonance defaults</MWR_SettingsResetRaiderResonance>
 
+    <MWR_SettingsRaiderBiocodeTitle>Biocoded resonant weapons</MWR_SettingsRaiderBiocodeTitle>
+    <MWR_SettingsRaiderBiocodeDescription>Optional experimental feature. Only resonant weapons generated on hostile raiders can become biocoded to that raider. Disabled by default.</MWR_SettingsRaiderBiocodeDescription>
+    <MWR_SettingsEnableRaiderBiocode>Enable biocode on resonant raider weapons</MWR_SettingsEnableRaiderBiocode>
+    <MWR_SettingsEnableRaiderBiocodeTooltip>When enabled, generated resonant weapons from hostile raiders can become biocoded to that raider. Non-resonant weapons, apparel, traders, guests and allies are ignored.</MWR_SettingsEnableRaiderBiocodeTooltip>
+    <MWR_SettingsRaiderBiocodeChance>Biocode chance</MWR_SettingsRaiderBiocodeChance>
+    <MWR_SettingsResetRaiderBiocode>Restore raider biocode defaults</MWR_SettingsResetRaiderBiocode>
+
+
     <MWR_Enchant_MeleeDamage_Label>Sharp</MWR_Enchant_MeleeDamage_Label>
     <MWR_Enchant_MeleeDamage_Description>Increases melee weapon damage.</MWR_Enchant_MeleeDamage_Description>
     <MWR_Enchant_MeleeCooldown_Label>Swift</MWR_Enchant_MeleeCooldown_Label>
