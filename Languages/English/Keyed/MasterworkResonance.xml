@@ -57,6 +57,13 @@
     <MWR_SettingsFeedbackTitle>Feedback</MWR_SettingsFeedbackTitle>
     <MWR_SettingsFeedbackText>Have an idea, balance suggestion, or bug report? Leave a comment on the Steam Workshop page.</MWR_SettingsFeedbackText>
     <MWR_SettingsOpenWorkshopPage>Open Workshop page</MWR_SettingsOpenWorkshopPage>
+    <MWR_SettingsRaiderGearQualityTitle>Raider gear quality</MWR_SettingsRaiderGearQualityTitle>
+    <MWR_SettingsRaiderGearQualityDescription>Optional experimental feature. Only hostile non-player combat pawns can have generated weapon and apparel quality upgraded. Disabled by default.</MWR_SettingsRaiderGearQualityDescription>
+    <MWR_SettingsEnableRaiderGearQuality>Enable raider gear quality upgrades</MWR_SettingsEnableRaiderGearQuality>
+    <MWR_SettingsEnableRaiderGearQualityTooltip>When enabled, hostile raiders can have generated weapons and apparel upgraded to Masterwork or Legendary quality. Traders, guests and allies are ignored.</MWR_SettingsEnableRaiderGearQualityTooltip>
+    <MWR_SettingsRaiderGearQualityUpgradeChance>Quality upgrade chance</MWR_SettingsRaiderGearQualityUpgradeChance>
+    <MWR_SettingsRaiderGearLegendaryChance>Legendary chance after upgrade</MWR_SettingsRaiderGearLegendaryChance>
+    <MWR_SettingsResetRaiderGearQuality>Restore raider gear quality defaults</MWR_SettingsResetRaiderGearQuality>
 
     <MWR_Enchant_MeleeDamage_Label>Sharp</MWR_Enchant_MeleeDamage_Label>
     <MWR_Enchant_MeleeDamage_Description>Increases melee weapon damage.</MWR_Enchant_MeleeDamage_Description>

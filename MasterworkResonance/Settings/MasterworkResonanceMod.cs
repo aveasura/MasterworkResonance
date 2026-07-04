@@ -14,6 +14,7 @@ namespace MasterworkResonance
         private const float CardGap = 10f;
         private const float CardPadding = 12f;
         private const float ChanceBlockHeight = 222f;
+        private const float RaiderGearQualityBlockHeight = 258f;
         private const float OptionCardHeight = 312f;
         private const float TargetHeaderHeight = 34f;
         private const float FeedbackBlockHeight = 148f;
@@ -58,6 +59,7 @@ namespace MasterworkResonance
             DrawResetAllBlock(viewRect, ref curY);
             DrawIntro(viewRect, ref curY);
             DrawAwakeningSettings(viewRect, ref curY);
+            DrawRaiderGearQualitySettings(viewRect, ref curY);
             DrawSectionTitle(viewRect, ref curY, ResonanceTranslation.Translate("SettingsRollRanges", "Resonance roll ranges"));
 
             EnchantTarget? lastTarget = null;
@@ -103,7 +105,7 @@ namespace MasterworkResonance
                 }
             }
             
-            return 84f + ChanceBlockHeight + 44f
+            return 84f + ChanceBlockHeight + SectionGap + RaiderGearQualityBlockHeight + SectionGap + 44f
                    + targetHeaders * TargetHeaderHeight
                    + options.Count * (OptionCardHeight + CardGap)
                    + FeedbackBlockHeight + SectionGap
@@ -168,6 +170,53 @@ namespace MasterworkResonance
 
             listing.End();
             curY += ChanceBlockHeight + SectionGap;
+        }
+
+        private static void DrawRaiderGearQualitySettings(Rect viewRect, ref float curY)
+        {
+            Rect cardRect = new Rect(0f, curY, viewRect.width, RaiderGearQualityBlockHeight);
+            Widgets.DrawMenuSection(cardRect);
+
+            Rect innerRect = Contract(cardRect, CardPadding);
+            Listing_Standard listing = new Listing_Standard();
+            listing.Begin(innerRect);
+
+            Text.Font = GameFont.Medium;
+            ListingLabel(listing, ResonanceTranslation.Translate("SettingsRaiderGearQualityTitle", "Raider gear quality"), innerRect.width);
+            Text.Font = GameFont.Small;
+
+            ListingLabel(listing, ResonanceTranslation.Translate(
+                "SettingsRaiderGearQualityDescription",
+                "Optional experimental feature. Only hostile non-player combat pawns can have generated weapon and apparel quality upgraded. Disabled by default."), innerRect.width);
+
+            bool enableRaiderGearQuality = Settings.enableRaiderGearQuality;
+            listing.CheckboxLabeled(
+                ResonanceTranslation.Translate("SettingsEnableRaiderGearQuality", "Enable raider gear quality upgrades"),
+                ref enableRaiderGearQuality,
+                ResonanceTranslation.Translate(
+                    "SettingsEnableRaiderGearQualityTooltip",
+                    "When enabled, hostile raiders can have generated weapons and apparel upgraded to Masterwork or Legendary quality. Traders, guests and allies are ignored."));
+            Settings.enableRaiderGearQuality = enableRaiderGearQuality;
+
+            DrawAwakeningChance(listing, innerRect.width,
+                ResonanceTranslation.Translate("SettingsRaiderGearQualityUpgradeChance", "Quality upgrade chance"),
+                ref Settings.raiderGearQualityUpgradeChance,
+                MasterworkResonanceSettings.DefaultRaiderGearQualityUpgradeChance);
+
+            DrawAwakeningChance(listing, innerRect.width,
+                ResonanceTranslation.Translate("SettingsRaiderGearLegendaryChance", "Legendary chance after upgrade"),
+                ref Settings.raiderGearLegendaryChance,
+                MasterworkResonanceSettings.DefaultRaiderGearLegendaryChance);
+
+            if (listing.ButtonText(ResonanceTranslation.Translate(
+                    "SettingsResetRaiderGearQuality",
+                    "Restore raider gear quality defaults")))
+            {
+                Settings.ResetRaiderGearQuality();
+            }
+
+            listing.End();
+            curY += RaiderGearQualityBlockHeight + SectionGap;
         }
 
         private static void DrawSectionTitle(Rect viewRect, ref float curY, string label)

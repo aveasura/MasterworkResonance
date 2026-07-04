@@ -57,6 +57,13 @@
     <MWR_SettingsFeedbackTitle>Обратная связь</MWR_SettingsFeedbackTitle>
     <MWR_SettingsFeedbackText>Есть идея, предложение по балансу или найден баг? Напиши комментарий на странице мода в Steam Workshop.</MWR_SettingsFeedbackText>
     <MWR_SettingsOpenWorkshopPage>Открыть страницу мода</MWR_SettingsOpenWorkshopPage>
+    <MWR_SettingsRaiderGearQualityTitle>Качество снаряжения рейдеров</MWR_SettingsRaiderGearQualityTitle>
+    <MWR_SettingsRaiderGearQualityDescription>Опциональная экспериментальная функция. Только враждебные неигровые боевые пешки могут получить повышенное качество сгенерированного оружия, брони и одежды. По умолчанию выключено.</MWR_SettingsRaiderGearQualityDescription>
+    <MWR_SettingsEnableRaiderGearQuality>Повышать качество снаряжения рейдеров</MWR_SettingsEnableRaiderGearQuality>
+    <MWR_SettingsEnableRaiderGearQualityTooltip>Если включено, сгенерированное оружие, броня и одежда враждебных рейдеров могут повышаться до качества шедевр или легендарное. Торговцы, гости и союзники игнорируются.</MWR_SettingsEnableRaiderGearQualityTooltip>
+    <MWR_SettingsRaiderGearQualityUpgradeChance>Шанс повышения качества</MWR_SettingsRaiderGearQualityUpgradeChance>
+    <MWR_SettingsRaiderGearLegendaryChance>Шанс легендарного после повышения</MWR_SettingsRaiderGearLegendaryChance>
+    <MWR_SettingsResetRaiderGearQuality>Вернуть настройки качества рейдеров по умолчанию</MWR_SettingsResetRaiderGearQuality>
 
     <MWR_Enchant_MeleeDamage_Label>Острый</MWR_Enchant_MeleeDamage_Label>
     <MWR_Enchant_MeleeDamage_Description>Увеличивает урон оружия ближнего боя.</MWR_Enchant_MeleeDamage_Description>

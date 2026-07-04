@@ -12,10 +12,15 @@ namespace MasterworkResonance
         public const float DefaultOptionWeight = 1f;
         public const float MinOptionWeight = 0.1f;
         public const float MaxOptionWeight = 10f;
+        public const float DefaultRaiderGearQualityUpgradeChance = 0.10f;
+        public const float DefaultRaiderGearLegendaryChance = 0.10f;
 
         public float masterworkAwakeningChance = DefaultMasterworkAwakeningChance;
         public float legendaryAwakeningChance = DefaultLegendaryAwakeningChance;
         public bool enableDevModeEnchantment = false;
+        public bool enableRaiderGearQuality = false;
+        public float raiderGearQualityUpgradeChance = DefaultRaiderGearQualityUpgradeChance;
+        public float raiderGearLegendaryChance = DefaultRaiderGearLegendaryChance;
 
         private Dictionary<string, float> minValues = new Dictionary<string, float>();
         private Dictionary<string, float> maxValues = new Dictionary<string, float>();
@@ -29,6 +34,9 @@ namespace MasterworkResonance
             Scribe_Values.Look(ref masterworkAwakeningChance, "masterworkAwakeningChance", DefaultMasterworkAwakeningChance);
             Scribe_Values.Look(ref legendaryAwakeningChance, "legendaryAwakeningChance", DefaultLegendaryAwakeningChance);
             Scribe_Values.Look(ref enableDevModeEnchantment, "enableDevModeEnchantment", false);
+            Scribe_Values.Look(ref enableRaiderGearQuality, "enableRaiderGearQuality", false);
+            Scribe_Values.Look(ref raiderGearQualityUpgradeChance, "raiderGearQualityUpgradeChance", DefaultRaiderGearQualityUpgradeChance);
+            Scribe_Values.Look(ref raiderGearLegendaryChance, "raiderGearLegendaryChance", DefaultRaiderGearLegendaryChance);
 
             Scribe_Collections.Look(ref minValues, "minValues", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref maxValues, "maxValues", LookMode.Value, LookMode.Value);
@@ -72,6 +80,8 @@ namespace MasterworkResonance
 
             masterworkAwakeningChance = RoundChanceToWholePercent(masterworkAwakeningChance);
             legendaryAwakeningChance = RoundChanceToWholePercent(legendaryAwakeningChance);
+            raiderGearQualityUpgradeChance = RoundChanceToWholePercent(raiderGearQualityUpgradeChance);
+            raiderGearLegendaryChance = RoundChanceToWholePercent(raiderGearLegendaryChance);
 
             List<EnchantmentOption> options = EnchantmentDatabase.GetAllOptions(true);
             for (int i = 0; i < options.Count; i++)
@@ -258,6 +268,13 @@ namespace MasterworkResonance
             enableDevModeEnchantment = false;
         }
 
+        public void ResetRaiderGearQuality()
+        {
+            enableRaiderGearQuality = false;
+            raiderGearQualityUpgradeChance = DefaultRaiderGearQualityUpgradeChance;
+            raiderGearLegendaryChance = DefaultRaiderGearLegendaryChance;
+        }
+
         public void ResetOptionToDefaults(EnchantmentOption option)
         {
             EnsureDictionaries();
@@ -277,6 +294,7 @@ namespace MasterworkResonance
         {
             ResetAwakeningChances();
             ResetDevModeTools();
+            ResetRaiderGearQuality();
 
             EnsureDictionaries();
             minValues.Clear();
