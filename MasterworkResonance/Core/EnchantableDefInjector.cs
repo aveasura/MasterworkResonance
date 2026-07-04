@@ -72,7 +72,7 @@ namespace MasterworkResonance
             for (int i = 0; i < def.comps.Count; i++)
             {
                 CompProperties props = def.comps[i];
-                if (props != null && props.compClass == compClass)
+                if (props != null && props.compClass != null && compClass.IsAssignableFrom(props.compClass))
                 {
                     return true;
                 }
