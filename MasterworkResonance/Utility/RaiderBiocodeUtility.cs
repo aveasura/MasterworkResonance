@@ -39,8 +39,7 @@ namespace MasterworkResonance
             }
         }
 
-        private static void TryBiocodeWeapon(ThingWithComps thing, Pawn pawn, PawnGenerationRequest request,
-            int slotIndex)
+        private static void TryBiocodeWeapon(ThingWithComps thing, Pawn pawn, PawnGenerationRequest request, int slotIndex)
         {
             if (thing == null || thing.def == null || !IsEligibleWeapon(thing.def))
             {
@@ -118,12 +117,9 @@ namespace MasterworkResonance
             try
             {
                 MethodInfo method = AccessTools.Method(typeof(CompBiocodable), "Biocode", new Type[] { typeof(Pawn) })
-                                    ?? AccessTools.Method(typeof(CompBiocodable), "CodeFor",
-                                        new Type[] { typeof(Pawn) })
-                                    ?? AccessTools.Method(typeof(CompBiocodable), "BiocodeFor",
-                                        new Type[] { typeof(Pawn) })
-                                    ?? AccessTools.Method(typeof(CompBiocodable), "SetBiocodedFor",
-                                        new Type[] { typeof(Pawn) });
+                                    ?? AccessTools.Method(typeof(CompBiocodable), "CodeFor", new Type[] { typeof(Pawn) })
+                                    ?? AccessTools.Method(typeof(CompBiocodable), "BiocodeFor", new Type[] { typeof(Pawn) })
+                                    ?? AccessTools.Method(typeof(CompBiocodable), "SetBiocodedFor", new Type[] { typeof(Pawn) });
 
                 if (method != null)
                 {
@@ -138,19 +134,16 @@ namespace MasterworkResonance
                     return;
                 }
 
-                MasterworkResonanceConfig.LogWarning(
-                    "[MasterworkResonance] Failed to biocode raider weapon: CompBiocodable API was not found for " +
-                    (thing != null ? thing.LabelCap.ToString() : "unknown weapon") + ".");
+                MasterworkResonanceConfig.LogWarning("[MasterworkResonance] Failed to biocode raider weapon: CompBiocodable API was not found for " +
+                                                     (thing != null ? thing.LabelCap.ToString() : "unknown weapon") + ".");
             }
             catch (Exception ex)
             {
-                MasterworkResonanceConfig.LogWarning("[MasterworkResonance] Failed to biocode raider weapon: " +
-                                                     ex.Message);
+                MasterworkResonanceConfig.LogWarning("[MasterworkResonance] Failed to biocode raider weapon: " + ex.Message);
             }
         }
 
-        private static int BuildSeed(Pawn pawn, PawnGenerationRequest request, Thing thing,
-            CompEnchantments compEnchantments, int slotIndex)
+        private static int BuildSeed(Pawn pawn, PawnGenerationRequest request, Thing thing, CompEnchantments compEnchantments, int slotIndex)
         {
             unchecked
             {

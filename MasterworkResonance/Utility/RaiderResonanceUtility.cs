@@ -43,8 +43,7 @@ namespace MasterworkResonance
             }
         }
 
-        private static void TryApplyResonance(ThingWithComps thing, Pawn pawn, PawnGenerationRequest request,
-            int slotIndex)
+        private static void TryApplyResonance(ThingWithComps thing, Pawn pawn, PawnGenerationRequest request, int slotIndex)
         {
             if (thing == null || thing.def == null || !RaiderGearQualityUtility.IsEligibleGear(thing.def))
             {
@@ -87,8 +86,7 @@ namespace MasterworkResonance
                 return;
             }
 
-            compEnchantments.TryGenerateForcedDeterministic(null, false,
-                ResonanceDeterministicRandom.Combine(seed, 9001));
+            compEnchantments.TryGenerateForcedDeterministic(null, false, ResonanceDeterministicRandom.Combine(seed, 9001));
         }
 
         private static int BuildSeed(Pawn pawn, PawnGenerationRequest request, Thing thing, int slotIndex)

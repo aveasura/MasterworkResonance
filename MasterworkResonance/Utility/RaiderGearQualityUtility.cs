@@ -66,7 +66,13 @@ namespace MasterworkResonance
                 return false;
             }
 
-            if (faction.PlayerRelationKind != FactionRelationKind.Hostile)
+            Faction playerFaction = GetPlayerFactionSilent();
+            if (playerFaction == null)
+            {
+                return false;
+            }
+
+            if (!faction.HostileTo(playerFaction))
             {
                 return false;
             }
@@ -79,8 +85,33 @@ namespace MasterworkResonance
             return true;
         }
 
-        private static void TryUpgradeThing(ThingWithComps thing, Pawn pawn, PawnGenerationRequest request,
-            int slotIndex)
+        private static Faction GetPlayerFactionSilent()
+        {
+            FactionManager factionManager = Find.FactionManager;
+            if (factionManager == null)
+            {
+                return null;
+            }
+
+            List<Faction> factions = factionManager.AllFactionsListForReading;
+            if (factions == null)
+            {
+                return null;
+            }
+
+            for (int i = 0; i < factions.Count; i++)
+            {
+                Faction faction = factions[i];
+                if (faction != null && faction.IsPlayer)
+                {
+                    return faction;
+                }
+            }
+
+            return null;
+        }
+
+        private static void TryUpgradeThing(ThingWithComps thing, Pawn pawn, PawnGenerationRequest request, int slotIndex)
         {
             if (thing == null || thing.def == null || !IsEligibleGear(thing.def))
             {
