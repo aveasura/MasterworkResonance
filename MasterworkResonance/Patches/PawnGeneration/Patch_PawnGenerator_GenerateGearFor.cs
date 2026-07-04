@@ -28,6 +28,7 @@ namespace MasterworkResonance
         public static void Postfix(Pawn pawn, PawnGenerationRequest request)
         {
             RaiderGearQualityUtility.TryUpgradeGearForPawn(pawn, request);
+            RaiderResonanceUtility.TryApplyResonanceForPawn(pawn, request);
         }
     }
 }

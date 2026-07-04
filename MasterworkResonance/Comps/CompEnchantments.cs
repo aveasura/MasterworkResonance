@@ -67,6 +67,11 @@ namespace MasterworkResonance
             return TryGenerateInternal(worker, showMessage, false, 0, true);
         }
 
+        public bool TryGenerateForcedDeterministic(Pawn worker, bool showMessage, int seed)
+        {
+            return TryGenerateInternal(worker, showMessage, true, seed, true);
+        }
+
         private bool TryGenerateInternal(Pawn worker, bool showMessage, bool deterministic, int seed, bool forceAwakening)
         {
             if (HasEnchantment)

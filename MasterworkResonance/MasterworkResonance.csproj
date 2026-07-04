@@ -98,6 +98,7 @@
         <Compile Include="Patches\Stats\Patch_Thing_MaxHitPoints.cs"/>
         <Compile Include="Utility\ResonanceDeterministicRandom.cs"/>
         <Compile Include="Utility\RaiderGearQualityUtility.cs"/>
+        <Compile Include="Utility\RaiderResonanceUtility.cs"/>
         <Compile Include="Utility\ResonanceHediffUtility.cs"/>
         <Compile Include="Utility\ResonanceTranslation.cs"/>
         <Compile Include="StatParts\ResonanceStatPartInjector.cs"/>

@@ -65,6 +65,13 @@
     <MWR_SettingsRaiderGearLegendaryChance>Шанс легендарного после повышения</MWR_SettingsRaiderGearLegendaryChance>
     <MWR_SettingsResetRaiderGearQuality>Вернуть настройки качества рейдеров по умолчанию</MWR_SettingsResetRaiderGearQuality>
 
+    <MWR_SettingsRaiderResonanceTitle>Резонанс рейдерского снаряжения</MWR_SettingsRaiderResonanceTitle>
+    <MWR_SettingsRaiderResonanceDescription>Опциональная экспериментальная функция. Только враждебные неигровые боевые пешки могут получить резонанс на сгенерированном оружии, броне и одежде качества шедевр или легендарное. По умолчанию выключено.</MWR_SettingsRaiderResonanceDescription>
+    <MWR_SettingsEnableRaiderResonance>Разрешить резонанс у рейдерского снаряжения</MWR_SettingsEnableRaiderResonance>
+    <MWR_SettingsEnableRaiderResonanceTooltip>Если включено, сгенерированное снаряжение враждебных рейдеров качества шедевр или легендарное может пробудить резонанс. Торговцы, гости и союзники игнорируются.</MWR_SettingsEnableRaiderResonanceTooltip>
+    <MWR_SettingsRaiderResonanceChanceMultiplier>Множитель шанса резонанса</MWR_SettingsRaiderResonanceChanceMultiplier>
+    <MWR_SettingsResetRaiderResonance>Вернуть настройки резонанса рейдеров по умолчанию</MWR_SettingsResetRaiderResonance>
+
     <MWR_Enchant_MeleeDamage_Label>Острый</MWR_Enchant_MeleeDamage_Label>
     <MWR_Enchant_MeleeDamage_Description>Увеличивает урон оружия ближнего боя.</MWR_Enchant_MeleeDamage_Description>
     <MWR_Enchant_MeleeCooldown_Label>Проворный</MWR_Enchant_MeleeCooldown_Label>

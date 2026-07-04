@@ -65,6 +65,13 @@
     <MWR_SettingsRaiderGearLegendaryChance>Legendary chance after upgrade</MWR_SettingsRaiderGearLegendaryChance>
     <MWR_SettingsResetRaiderGearQuality>Restore raider gear quality defaults</MWR_SettingsResetRaiderGearQuality>
 
+    <MWR_SettingsRaiderResonanceTitle>Raider gear resonance</MWR_SettingsRaiderResonanceTitle>
+    <MWR_SettingsRaiderResonanceDescription>Optional experimental feature. Only hostile non-player combat pawns can awaken resonance on generated Masterwork or Legendary weapons and apparel. Disabled by default.</MWR_SettingsRaiderResonanceDescription>
+    <MWR_SettingsEnableRaiderResonance>Enable resonance on raider gear</MWR_SettingsEnableRaiderResonance>
+    <MWR_SettingsEnableRaiderResonanceTooltip>When enabled, generated Masterwork or Legendary gear from hostile raiders can awaken resonance. Traders, guests and allies are ignored.</MWR_SettingsEnableRaiderResonanceTooltip>
+    <MWR_SettingsRaiderResonanceChanceMultiplier>Resonance chance multiplier</MWR_SettingsRaiderResonanceChanceMultiplier>
+    <MWR_SettingsResetRaiderResonance>Restore raider resonance defaults</MWR_SettingsResetRaiderResonance>
+
     <MWR_Enchant_MeleeDamage_Label>Sharp</MWR_Enchant_MeleeDamage_Label>
     <MWR_Enchant_MeleeDamage_Description>Increases melee weapon damage.</MWR_Enchant_MeleeDamage_Description>
     <MWR_Enchant_MeleeCooldown_Label>Swift</MWR_Enchant_MeleeCooldown_Label>

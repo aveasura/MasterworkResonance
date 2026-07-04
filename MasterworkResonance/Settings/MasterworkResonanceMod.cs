@@ -15,6 +15,7 @@ namespace MasterworkResonance
         private const float CardPadding = 12f;
         private const float ChanceBlockHeight = 222f;
         private const float RaiderGearQualityBlockHeight = 258f;
+        private const float RaiderResonanceBlockHeight = 222f;
         private const float OptionCardHeight = 312f;
         private const float TargetHeaderHeight = 34f;
         private const float FeedbackBlockHeight = 148f;
@@ -60,6 +61,7 @@ namespace MasterworkResonance
             DrawIntro(viewRect, ref curY);
             DrawAwakeningSettings(viewRect, ref curY);
             DrawRaiderGearQualitySettings(viewRect, ref curY);
+            DrawRaiderResonanceSettings(viewRect, ref curY);
             DrawSectionTitle(viewRect, ref curY, ResonanceTranslation.Translate("SettingsRollRanges", "Resonance roll ranges"));
 
             EnchantTarget? lastTarget = null;
@@ -105,7 +107,7 @@ namespace MasterworkResonance
                 }
             }
             
-            return 84f + ChanceBlockHeight + SectionGap + RaiderGearQualityBlockHeight + SectionGap + 44f
+            return 84f + ChanceBlockHeight + SectionGap + RaiderGearQualityBlockHeight + SectionGap + RaiderResonanceBlockHeight + SectionGap + 44f
                    + targetHeaders * TargetHeaderHeight
                    + options.Count * (OptionCardHeight + CardGap)
                    + FeedbackBlockHeight + SectionGap
@@ -217,6 +219,50 @@ namespace MasterworkResonance
 
             listing.End();
             curY += RaiderGearQualityBlockHeight + SectionGap;
+        }
+
+        private static void DrawRaiderResonanceSettings(Rect viewRect, ref float curY)
+        {
+            Rect cardRect = new Rect(0f, curY, viewRect.width, RaiderResonanceBlockHeight);
+            Widgets.DrawMenuSection(cardRect);
+
+            Rect innerRect = Contract(cardRect, CardPadding);
+            Listing_Standard listing = new Listing_Standard();
+            listing.Begin(innerRect);
+
+            Text.Font = GameFont.Medium;
+            ListingLabel(listing, ResonanceTranslation.Translate("SettingsRaiderResonanceTitle", "Raider resonance"), innerRect.width);
+            Text.Font = GameFont.Small;
+
+            ListingLabel(listing, ResonanceTranslation.Translate(
+                "SettingsRaiderResonanceDescription",
+                "Optional experimental feature. Only hostile non-player combat pawns can awaken resonance on generated Masterwork or Legendary weapons and apparel. Disabled by default."), innerRect.width);
+
+            bool enableRaiderResonance = Settings.enableRaiderResonance;
+            listing.CheckboxLabeled(
+                ResonanceTranslation.Translate("SettingsEnableRaiderResonance", "Enable raider resonance"),
+                ref enableRaiderResonance,
+                ResonanceTranslation.Translate(
+                    "SettingsEnableRaiderResonanceTooltip",
+                    "When enabled, hostile raiders can awaken resonance on generated Masterwork or Legendary gear. Traders, guests and allies are ignored."));
+            Settings.enableRaiderResonance = enableRaiderResonance;
+
+            DrawMultiplier(listing, innerRect.width,
+                ResonanceTranslation.Translate("SettingsRaiderResonanceChanceMultiplier", "Resonance chance multiplier"),
+                ref Settings.raiderResonanceChanceMultiplier,
+                MasterworkResonanceSettings.DefaultRaiderResonanceChanceMultiplier,
+                MasterworkResonanceSettings.MinRaiderResonanceChanceMultiplier,
+                MasterworkResonanceSettings.MaxRaiderResonanceChanceMultiplier);
+
+            if (listing.ButtonText(ResonanceTranslation.Translate(
+                    "SettingsResetRaiderResonance",
+                    "Restore raider resonance defaults")))
+            {
+                Settings.ResetRaiderResonance();
+            }
+
+            listing.End();
+            curY += RaiderResonanceBlockHeight + SectionGap;
         }
 
         private static void DrawSectionTitle(Rect viewRect, ref float curY, string label)
@@ -364,6 +410,27 @@ namespace MasterworkResonance
             float height = Text.CalcHeight(label, width);
             Rect rect = listing.GetRect(height);
             Widgets.Label(rect, label);
+        }
+
+        private static void DrawMultiplier(Listing_Standard listing, float width, string label, ref float value, float defaultValue, float min, float max)
+        {
+            if (value < min)
+            {
+                value = min;
+            }
+
+            if (value > max)
+            {
+                value = max;
+            }
+
+            value = Round(value, 0.1f);
+
+            ListingLabel(listing, label + ": x" + value.ToString("0.#") + " " +
+                         ResonanceTranslation.Translate("SettingsDefault", "default") + " x" +
+                         defaultValue.ToString("0.#"), width);
+            value = listing.Slider(value, min, max);
+            value = Round(value, 0.1f);
         }
 
         private static void DrawAwakeningChance(Listing_Standard listing, float width, string label, ref float chance, float defaultValue)

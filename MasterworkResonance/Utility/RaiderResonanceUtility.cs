@@ -4,17 +4,17 @@ using Verse;
 
 namespace MasterworkResonance
 {
-    public static class RaiderGearQualityUtility
+    public static class RaiderResonanceUtility
     {
-        public static void TryUpgradeGearForPawn(Pawn pawn, PawnGenerationRequest request)
+        public static void TryApplyResonanceForPawn(Pawn pawn, PawnGenerationRequest request)
         {
             MasterworkResonanceSettings settings = MasterworkResonanceMod.Settings;
-            if (settings == null || !settings.enableRaiderGearQuality)
+            if (settings == null || !settings.enableRaiderResonance)
             {
                 return;
             }
 
-            if (!IsEligibleRaider(pawn, request))
+            if (!RaiderGearQualityUtility.IsEligibleRaider(pawn, request))
             {
                 return;
             }
@@ -28,7 +28,7 @@ namespace MasterworkResonance
                 {
                     for (int i = 0; i < equipment.Count; i++)
                     {
-                        TryUpgradeThing(equipment[i], pawn, request, slotIndex++);
+                        TryApplyResonance(equipment[i], pawn, request, slotIndex++);
                     }
                 }
             }
@@ -38,50 +38,14 @@ namespace MasterworkResonance
                 List<Apparel> apparel = pawn.apparel.WornApparel;
                 for (int i = 0; i < apparel.Count; i++)
                 {
-                    TryUpgradeThing(apparel[i], pawn, request, slotIndex++);
+                    TryApplyResonance(apparel[i], pawn, request, slotIndex++);
                 }
             }
         }
 
-        public static bool IsEligibleRaider(Pawn pawn, PawnGenerationRequest request)
+        private static void TryApplyResonance(ThingWithComps thing, Pawn pawn, PawnGenerationRequest request, int slotIndex)
         {
-            if (pawn == null || pawn.Destroyed)
-            {
-                return false;
-            }
-
-            if (request.Context != PawnGenerationContext.NonPlayer)
-            {
-                return false;
-            }
-
-            Faction faction = pawn.Faction;
-            if (faction == null)
-            {
-                faction = request.Faction;
-            }
-
-            if (faction == null || faction.IsPlayer)
-            {
-                return false;
-            }
-
-            if (faction.PlayerRelationKind != FactionRelationKind.Hostile)
-            {
-                return false;
-            }
-
-            if (pawn.kindDef != null && !pawn.kindDef.isFighter)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private static void TryUpgradeThing(ThingWithComps thing, Pawn pawn, PawnGenerationRequest request, int slotIndex)
-        {
-            if (thing == null || thing.def == null || !IsEligibleGear(thing.def))
+            if (thing == null || thing.def == null || !RaiderGearQualityUtility.IsEligibleGear(thing.def))
             {
                 return;
             }
@@ -92,7 +56,14 @@ namespace MasterworkResonance
                 return;
             }
 
-            if (compQuality.Quality >= QualityCategory.Masterwork)
+            QualityCategory quality = compQuality.Quality;
+            if (quality != QualityCategory.Masterwork && quality != QualityCategory.Legendary)
+            {
+                return;
+            }
+
+            CompEnchantments compEnchantments = thing.TryGetComp<CompEnchantments>();
+            if (compEnchantments == null || compEnchantments.HasEnchantment)
             {
                 return;
             }
@@ -103,37 +74,26 @@ namespace MasterworkResonance
                 return;
             }
 
-            float upgradeChance = Clamp01(settings.raiderGearQualityUpgradeChance);
-            if (upgradeChance <= 0f)
+            float chance = Clamp01(settings.GetAwakeningChance(quality) * settings.raiderResonanceChanceMultiplier);
+            if (chance <= 0f)
             {
                 return;
             }
 
             int seed = BuildSeed(pawn, request, thing, slotIndex);
-            if (ResonanceDeterministicRandom.StableRandom01(seed) >= upgradeChance)
+            if (chance < 1f && ResonanceDeterministicRandom.StableRandom01(seed) >= chance)
             {
                 return;
             }
 
-            float legendaryChance = Clamp01(settings.raiderGearLegendaryChance);
-            bool legendary = legendaryChance > 0f &&
-                             ResonanceDeterministicRandom.StableRandom01(
-                                 ResonanceDeterministicRandom.Combine(seed, 7331)) < legendaryChance;
-
-            QualityCategory newQuality = legendary ? QualityCategory.Legendary : QualityCategory.Masterwork;
-            compQuality.SetQuality(newQuality, ArtGenerationContext.Outsider);
-        }
-
-        public static bool IsEligibleGear(ThingDef def)
-        {
-            return def.IsMeleeWeapon || def.IsRangedWeapon || def.IsApparel;
+            compEnchantments.TryGenerateForcedDeterministic(null, false, ResonanceDeterministicRandom.Combine(seed, 9001));
         }
 
         private static int BuildSeed(Pawn pawn, PawnGenerationRequest request, Thing thing, int slotIndex)
         {
             unchecked
             {
-                int seed = ResonanceDeterministicRandom.StableStringHash("MasterworkResonance.RaiderGearQuality");
+                int seed = ResonanceDeterministicRandom.StableStringHash("MasterworkResonance.RaiderResonance");
                 seed = ResonanceDeterministicRandom.Combine(seed, slotIndex);
 
                 if (pawn != null)
@@ -169,6 +129,12 @@ namespace MasterworkResonance
                         seed = ResonanceDeterministicRandom.Combine(seed,
                             ResonanceDeterministicRandom.StableStringHash(thing.def.defName));
                         seed = ResonanceDeterministicRandom.Combine(seed, thing.def.shortHash);
+                    }
+
+                    CompQuality compQuality = thing.TryGetComp<CompQuality>();
+                    if (compQuality != null)
+                    {
+                        seed = ResonanceDeterministicRandom.Combine(seed, (int)compQuality.Quality);
                     }
                 }
 

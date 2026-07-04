@@ -14,6 +14,9 @@ namespace MasterworkResonance
         public const float MaxOptionWeight = 10f;
         public const float DefaultRaiderGearQualityUpgradeChance = 0.10f;
         public const float DefaultRaiderGearLegendaryChance = 0.10f;
+        public const float DefaultRaiderResonanceChanceMultiplier = 1f;
+        public const float MinRaiderResonanceChanceMultiplier = 0f;
+        public const float MaxRaiderResonanceChanceMultiplier = 5f;
 
         public float masterworkAwakeningChance = DefaultMasterworkAwakeningChance;
         public float legendaryAwakeningChance = DefaultLegendaryAwakeningChance;
@@ -21,6 +24,8 @@ namespace MasterworkResonance
         public bool enableRaiderGearQuality = false;
         public float raiderGearQualityUpgradeChance = DefaultRaiderGearQualityUpgradeChance;
         public float raiderGearLegendaryChance = DefaultRaiderGearLegendaryChance;
+        public bool enableRaiderResonance = false;
+        public float raiderResonanceChanceMultiplier = DefaultRaiderResonanceChanceMultiplier;
 
         private Dictionary<string, float> minValues = new Dictionary<string, float>();
         private Dictionary<string, float> maxValues = new Dictionary<string, float>();
@@ -37,6 +42,8 @@ namespace MasterworkResonance
             Scribe_Values.Look(ref enableRaiderGearQuality, "enableRaiderGearQuality", false);
             Scribe_Values.Look(ref raiderGearQualityUpgradeChance, "raiderGearQualityUpgradeChance", DefaultRaiderGearQualityUpgradeChance);
             Scribe_Values.Look(ref raiderGearLegendaryChance, "raiderGearLegendaryChance", DefaultRaiderGearLegendaryChance);
+            Scribe_Values.Look(ref enableRaiderResonance, "enableRaiderResonance", false);
+            Scribe_Values.Look(ref raiderResonanceChanceMultiplier, "raiderResonanceChanceMultiplier", DefaultRaiderResonanceChanceMultiplier);
 
             Scribe_Collections.Look(ref minValues, "minValues", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref maxValues, "maxValues", LookMode.Value, LookMode.Value);
@@ -82,6 +89,7 @@ namespace MasterworkResonance
             legendaryAwakeningChance = RoundChanceToWholePercent(legendaryAwakeningChance);
             raiderGearQualityUpgradeChance = RoundChanceToWholePercent(raiderGearQualityUpgradeChance);
             raiderGearLegendaryChance = RoundChanceToWholePercent(raiderGearLegendaryChance);
+            raiderResonanceChanceMultiplier = ClampRaiderResonanceChanceMultiplier(raiderResonanceChanceMultiplier);
 
             List<EnchantmentOption> options = EnchantmentDatabase.GetAllOptions(true);
             for (int i = 0; i < options.Count; i++)
@@ -275,6 +283,12 @@ namespace MasterworkResonance
             raiderGearLegendaryChance = DefaultRaiderGearLegendaryChance;
         }
 
+        public void ResetRaiderResonance()
+        {
+            enableRaiderResonance = false;
+            raiderResonanceChanceMultiplier = DefaultRaiderResonanceChanceMultiplier;
+        }
+
         public void ResetOptionToDefaults(EnchantmentOption option)
         {
             EnsureDictionaries();
@@ -295,6 +309,7 @@ namespace MasterworkResonance
             ResetAwakeningChances();
             ResetDevModeTools();
             ResetRaiderGearQuality();
+            ResetRaiderResonance();
 
             EnsureDictionaries();
             minValues.Clear();
@@ -340,6 +355,21 @@ namespace MasterworkResonance
             }
 
             return value;
+        }
+
+        private static float ClampRaiderResonanceChanceMultiplier(float value)
+        {
+            if (value < MinRaiderResonanceChanceMultiplier)
+            {
+                return MinRaiderResonanceChanceMultiplier;
+            }
+
+            if (value > MaxRaiderResonanceChanceMultiplier)
+            {
+                return MaxRaiderResonanceChanceMultiplier;
+            }
+
+            return (float)Math.Round(value * 10f) / 10f;
         }
 
         private static float ClampWeight(float value)
