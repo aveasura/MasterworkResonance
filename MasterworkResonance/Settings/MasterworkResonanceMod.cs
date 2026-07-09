@@ -14,9 +14,9 @@ namespace MasterworkResonance
         private const float CardGap = 10f;
         private const float CardPadding = 12f;
         private const float ChanceBlockHeight = 222f;
-        private const float RaiderGearQualityBlockHeight = 258f;
-        private const float RaiderResonanceBlockHeight = 222f;
-        private const float RaiderBiocodeBlockHeight = 222f;
+        private const float RaiderGearQualityBlockHeight = 306f;
+        private const float RaiderResonanceBlockHeight = 292f;
+        private const float RaiderBiocodeBlockHeight = 270f;
         private const float OptionCardHeight = 312f;
         private const float TargetHeaderHeight = 34f;
         private const float FeedbackBlockHeight = 148f;
@@ -47,6 +47,7 @@ namespace MasterworkResonance
             }
 
             Settings.EnsureDictionaries();
+            Settings.ApplyRaidEvolutionCompatibilityLocks();
 
             Rect scrollRect = new Rect(inRect.x, inRect.y, inRect.width, inRect.height - BottomBarHeight - 8f);
 
@@ -64,7 +65,8 @@ namespace MasterworkResonance
             DrawRaiderGearQualitySettings(viewRect, ref curY);
             DrawRaiderResonanceSettings(viewRect, ref curY);
             DrawRaiderBiocodeSettings(viewRect, ref curY);
-            DrawSectionTitle(viewRect, ref curY, ResonanceTranslation.Translate("SettingsRollRanges", "Resonance roll ranges"));
+            DrawSectionTitle(viewRect, ref curY,
+                ResonanceTranslation.Translate("SettingsRollRanges", "Resonance roll ranges"));
 
             EnchantTarget? lastTarget = null;
             for (int i = 0; i < options.Count; i++)
@@ -108,8 +110,9 @@ namespace MasterworkResonance
                     targetHeaders++;
                 }
             }
-            
-            return 84f + ChanceBlockHeight + SectionGap + RaiderGearQualityBlockHeight + SectionGap + RaiderResonanceBlockHeight + SectionGap + RaiderBiocodeBlockHeight + SectionGap + 44f
+
+            return 84f + ChanceBlockHeight + SectionGap + RaiderGearQualityBlockHeight + SectionGap +
+                   RaiderResonanceBlockHeight + SectionGap + RaiderBiocodeBlockHeight + SectionGap + 44f
                    + targetHeaders * TargetHeaderHeight
                    + options.Count * (OptionCardHeight + CardGap)
                    + FeedbackBlockHeight + SectionGap
@@ -186,21 +189,32 @@ namespace MasterworkResonance
             listing.Begin(innerRect);
 
             Text.Font = GameFont.Medium;
-            ListingLabel(listing, ResonanceTranslation.Translate("SettingsRaiderGearQualityTitle", "Raider gear quality"), innerRect.width);
+            ListingLabel(listing,
+                ResonanceTranslation.Translate("SettingsRaiderGearQualityTitle", "Raider gear quality"),
+                innerRect.width);
             Text.Font = GameFont.Small;
 
             ListingLabel(listing, ResonanceTranslation.Translate(
-                "SettingsRaiderGearQualityDescription",
-                "Optional experimental feature. Only hostile non-player combat pawns can have generated weapon and apparel quality upgraded. Disabled by default."), innerRect.width);
+                    "SettingsRaiderGearQualityDescription",
+                    "Optional experimental feature. Only hostile non-player combat pawns can have generated weapon and apparel quality upgraded. Disabled by default."),
+                innerRect.width);
+
+            bool raidEvolutionIntegrationActive = RaidEvolutionCompatibilityUtility.ShouldSuppressMwRaiderFeatures;
+            DrawRaidEvolutionCompatibilityNote(listing, innerRect.width,
+                ResonanceTranslation.Translate(
+                    "SettingsRaidEvolutionGearQualityNote",
+                    "Raid Evolution integration is active. Masterwork Resonance will not upgrade raider gear quality directly; Raid Evolution handles raider gear quality in its own raid pipeline."));
 
             bool enableRaiderGearQuality = Settings.enableRaiderGearQuality;
-            listing.CheckboxLabeled(
-                ResonanceTranslation.Translate("SettingsEnableRaiderGearQuality", "Enable raider gear quality upgrades"),
+            DrawCompatibilityAwareCheckbox(listing,
+                ResonanceTranslation.Translate("SettingsEnableRaiderGearQuality",
+                    "Enable raider gear quality upgrades"),
                 ref enableRaiderGearQuality,
                 ResonanceTranslation.Translate(
                     "SettingsEnableRaiderGearQualityTooltip",
-                    "When enabled, hostile raiders can have generated weapons and apparel upgraded to Masterwork or Legendary quality. Traders, guests and allies are ignored."));
-            Settings.enableRaiderGearQuality = enableRaiderGearQuality;
+                    "When enabled, hostile raiders can have generated weapons and apparel upgraded to Masterwork or Legendary quality. Traders, guests and allies are ignored."),
+                raidEvolutionIntegrationActive);
+            Settings.enableRaiderGearQuality = raidEvolutionIntegrationActive ? false : enableRaiderGearQuality;
 
             DrawAwakeningChance(listing, innerRect.width,
                 ResonanceTranslation.Translate("SettingsRaiderGearQualityUpgradeChance", "Quality upgrade chance"),
@@ -233,24 +247,34 @@ namespace MasterworkResonance
             listing.Begin(innerRect);
 
             Text.Font = GameFont.Medium;
-            ListingLabel(listing, ResonanceTranslation.Translate("SettingsRaiderResonanceTitle", "Raider resonance"), innerRect.width);
+            ListingLabel(listing, ResonanceTranslation.Translate("SettingsRaiderResonanceTitle", "Raider resonance"),
+                innerRect.width);
             Text.Font = GameFont.Small;
 
             ListingLabel(listing, ResonanceTranslation.Translate(
-                "SettingsRaiderResonanceDescription",
-                "Optional experimental feature. Only hostile non-player combat pawns can awaken resonance on generated Masterwork or Legendary weapons and apparel. Disabled by default."), innerRect.width);
+                    "SettingsRaiderResonanceDescription",
+                    "Optional experimental feature. Only hostile non-player combat pawns can awaken resonance on generated Masterwork or Legendary weapons and apparel. Disabled by default."),
+                innerRect.width);
+
+            bool raidEvolutionIntegrationActive = RaidEvolutionCompatibilityUtility.ShouldSuppressMwRaiderFeatures;
+            DrawRaidEvolutionCompatibilityNote(listing, innerRect.width,
+                ResonanceTranslation.Translate(
+                    "SettingsRaidEvolutionResonanceNote",
+                    "Raid Evolution integration is active. This checkbox is ignored: Raid Evolution applies raider resonance at the end of raid generation. The multiplier below remains active and is used by Raid Evolution."));
 
             bool enableRaiderResonance = Settings.enableRaiderResonance;
-            listing.CheckboxLabeled(
+            DrawCompatibilityAwareCheckbox(listing,
                 ResonanceTranslation.Translate("SettingsEnableRaiderResonance", "Enable raider resonance"),
                 ref enableRaiderResonance,
                 ResonanceTranslation.Translate(
                     "SettingsEnableRaiderResonanceTooltip",
-                    "When enabled, hostile raiders can awaken resonance on generated Masterwork or Legendary gear. Traders, guests and allies are ignored."));
-            Settings.enableRaiderResonance = enableRaiderResonance;
+                    "When enabled, hostile raiders can awaken resonance on generated Masterwork or Legendary gear. Traders, guests and allies are ignored."),
+                raidEvolutionIntegrationActive);
+            Settings.enableRaiderResonance = raidEvolutionIntegrationActive ? false : enableRaiderResonance;
 
             DrawMultiplier(listing, innerRect.width,
-                ResonanceTranslation.Translate("SettingsRaiderResonanceChanceMultiplier", "Resonance chance multiplier"),
+                ResonanceTranslation.Translate("SettingsRaiderResonanceChanceMultiplier",
+                    "Resonance chance multiplier"),
                 ref Settings.raiderResonanceChanceMultiplier,
                 MasterworkResonanceSettings.DefaultRaiderResonanceChanceMultiplier,
                 MasterworkResonanceSettings.MinRaiderResonanceChanceMultiplier,
@@ -277,21 +301,32 @@ namespace MasterworkResonance
             listing.Begin(innerRect);
 
             Text.Font = GameFont.Medium;
-            ListingLabel(listing, ResonanceTranslation.Translate("SettingsRaiderBiocodeTitle", "Biocoded resonant weapons"), innerRect.width);
+            ListingLabel(listing,
+                ResonanceTranslation.Translate("SettingsRaiderBiocodeTitle", "Biocoded resonant weapons"),
+                innerRect.width);
             Text.Font = GameFont.Small;
 
             ListingLabel(listing, ResonanceTranslation.Translate(
-                "SettingsRaiderBiocodeDescription",
-                "Optional experimental feature. Only resonant weapons generated on hostile raiders can become biocoded to that raider. Disabled by default."), innerRect.width);
+                    "SettingsRaiderBiocodeDescription",
+                    "Optional experimental feature. Only resonant weapons generated on hostile raiders can become biocoded to that raider. Disabled by default."),
+                innerRect.width);
+
+            bool raidEvolutionIntegrationActive = RaidEvolutionCompatibilityUtility.ShouldSuppressMwRaiderFeatures;
+            DrawRaidEvolutionCompatibilityNote(listing, innerRect.width,
+                ResonanceTranslation.Translate(
+                    "SettingsRaidEvolutionBiocodeNote",
+                    "Raid Evolution integration is active. Masterwork Resonance will not biocode raider weapons directly; Raid Evolution handles raider weapon biocode after final raid gear is assigned."));
 
             bool enableRaiderBiocode = Settings.enableRaiderBiocode;
-            listing.CheckboxLabeled(
-                ResonanceTranslation.Translate("SettingsEnableRaiderBiocode", "Enable biocode on resonant raider weapons"),
+            DrawCompatibilityAwareCheckbox(listing,
+                ResonanceTranslation.Translate("SettingsEnableRaiderBiocode",
+                    "Enable biocode on resonant raider weapons"),
                 ref enableRaiderBiocode,
                 ResonanceTranslation.Translate(
                     "SettingsEnableRaiderBiocodeTooltip",
-                    "When enabled, hostile raiders can have generated resonant weapons biocoded to them. Non-resonant weapons, apparel, traders, guests and allies are ignored."));
-            Settings.enableRaiderBiocode = enableRaiderBiocode;
+                    "When enabled, hostile raiders can have generated resonant weapons biocoded to them. Non-resonant weapons, apparel, traders, guests and allies are ignored."),
+                raidEvolutionIntegrationActive);
+            Settings.enableRaiderBiocode = raidEvolutionIntegrationActive ? false : enableRaiderBiocode;
 
             DrawAwakeningChance(listing, innerRect.width,
                 ResonanceTranslation.Translate("SettingsRaiderBiocodeChance", "Biocode chance"),
@@ -307,6 +342,34 @@ namespace MasterworkResonance
 
             listing.End();
             curY += RaiderBiocodeBlockHeight + SectionGap;
+        }
+
+        private static void DrawCompatibilityAwareCheckbox(Listing_Standard listing, string label, ref bool value,
+            string tooltip, bool disabled)
+        {
+            if (!disabled)
+            {
+                listing.CheckboxLabeled(label, ref value, tooltip);
+                return;
+            }
+
+            value = false;
+            bool previousEnabled = GUI.enabled;
+            GUI.enabled = false;
+            listing.CheckboxLabeled(label, ref value, tooltip);
+            GUI.enabled = previousEnabled;
+        }
+
+        private static void DrawRaidEvolutionCompatibilityNote(Listing_Standard listing, float width, string note)
+        {
+            if (!RaidEvolutionCompatibilityUtility.ShouldSuppressMwRaiderFeatures)
+            {
+                return;
+            }
+
+            listing.Gap(4f);
+            ListingLabel(listing, note, width);
+            listing.Gap(2f);
         }
 
         private static void DrawSectionTitle(Rect viewRect, ref float curY, string label)
@@ -346,20 +409,28 @@ namespace MasterworkResonance
             listing.CheckboxLabeled(
                 ResonanceTranslation.Translate("SettingsEnabled", "Enabled"),
                 ref enabled,
-                ResonanceTranslation.Translate("SettingsEnabledTooltip", "If disabled, this resonance will not roll on newly crafted items."));
+                ResonanceTranslation.Translate("SettingsEnabledTooltip",
+                    "If disabled, this resonance will not roll on newly crafted items."));
             Settings.SetOptionEnabled(option, enabled);
 
-            ListingLabel(listing, ResonanceTranslation.Translate("SettingsWeight", "Roll weight") + ": " + weight.ToString("0.#") + " (" +
-                         ResonanceTranslation.Translate("SettingsWeightHint", "default 1; minimum 0.1") + ")", innerRect.width);
-            weight = listing.Slider(weight, MasterworkResonanceSettings.MinOptionWeight, MasterworkResonanceSettings.MaxOptionWeight);
+            ListingLabel(listing, ResonanceTranslation.Translate("SettingsWeight", "Roll weight") + ": " +
+                                  weight.ToString("0.#") + " (" +
+                                  ResonanceTranslation.Translate("SettingsWeightHint", "default 1; minimum 0.1") + ")",
+                innerRect.width);
+            weight = listing.Slider(weight, MasterworkResonanceSettings.MinOptionWeight,
+                MasterworkResonanceSettings.MaxOptionWeight);
             Settings.SetRollWeight(option, Round(weight, 0.1f));
 
             listing.Gap(4f);
-            ListingLabel(listing, ResonanceTranslation.Translate("SettingsMin", "Minimum") + ": " + FormatSettingValue(option, min), innerRect.width);
+            ListingLabel(listing,
+                ResonanceTranslation.Translate("SettingsMin", "Minimum") + ": " + FormatSettingValue(option, min),
+                innerRect.width);
             min = listing.Slider(min, 0f, sliderMax);
             min = RoundForOption(option, min);
 
-            ListingLabel(listing, ResonanceTranslation.Translate("SettingsMax", "Maximum") + ": " + FormatSettingValue(option, max), innerRect.width);
+            ListingLabel(listing,
+                ResonanceTranslation.Translate("SettingsMax", "Maximum") + ": " + FormatSettingValue(option, max),
+                innerRect.width);
             max = listing.Slider(max, 0f, sliderMax);
             max = RoundForOption(option, max);
 
@@ -397,8 +468,9 @@ namespace MasterworkResonance
             Text.Font = GameFont.Small;
 
             ListingLabel(listing, ResonanceTranslation.Translate(
-                "SettingsFeedbackText",
-                "Have an idea, balance suggestion, or bug report? Leave a comment on the Steam Workshop page."), innerRect.width);
+                    "SettingsFeedbackText",
+                    "Have an idea, balance suggestion, or bug report? Leave a comment on the Steam Workshop page."),
+                innerRect.width);
 
             listing.Gap(4f);
             if (listing.ButtonText(ResonanceTranslation.Translate("SettingsOpenWorkshopPage", "Open Workshop page")))
@@ -456,7 +528,8 @@ namespace MasterworkResonance
             Widgets.Label(rect, label);
         }
 
-        private static void DrawMultiplier(Listing_Standard listing, float width, string label, ref float value, float defaultValue, float min, float max)
+        private static void DrawMultiplier(Listing_Standard listing, float width, string label, ref float value,
+            float defaultValue, float min, float max)
         {
             if (value < min)
             {
@@ -471,13 +544,14 @@ namespace MasterworkResonance
             value = Round(value, 0.1f);
 
             ListingLabel(listing, label + ": x" + value.ToString("0.#") + " " +
-                         ResonanceTranslation.Translate("SettingsDefault", "default") + " x" +
-                         defaultValue.ToString("0.#"), width);
+                                  ResonanceTranslation.Translate("SettingsDefault", "default") + " x" +
+                                  defaultValue.ToString("0.#"), width);
             value = listing.Slider(value, min, max);
             value = Round(value, 0.1f);
         }
 
-        private static void DrawAwakeningChance(Listing_Standard listing, float width, string label, ref float chance, float defaultValue)
+        private static void DrawAwakeningChance(Listing_Standard listing, float width, string label, ref float chance,
+            float defaultValue)
         {
             chance = Clamp01(chance);
             float percent = chance * 100f;
@@ -485,8 +559,8 @@ namespace MasterworkResonance
             percent = Round(percent, 1f);
 
             ListingLabel(listing, label + ": " + percent.ToString("0") + "% " +
-                         ResonanceTranslation.Translate("SettingsDefault", "default") + " " +
-                         (defaultValue * 100f).ToString("0") + "%", width);
+                                  ResonanceTranslation.Translate("SettingsDefault", "default") + " " +
+                                  (defaultValue * 100f).ToString("0") + "%", width);
             percent = listing.Slider(percent, 0f, 100f);
             chance = Clamp01(Round(percent, 1f) / 100f);
         }

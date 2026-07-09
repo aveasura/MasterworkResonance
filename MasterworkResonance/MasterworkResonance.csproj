@@ -102,6 +102,7 @@
         <Compile Include="Utility\RaiderBiocodeUtility.cs"/>
         <Compile Include="Utility\ResonanceHediffUtility.cs"/>
         <Compile Include="Utility\ResonanceTranslation.cs"/>
+        <Compile Include="Utility\RaidEvolutionCompatibilityUtility.cs"/>
         <Compile Include="StatParts\ResonanceStatPartInjector.cs"/>
         <Compile Include="Utility\ResonanceUtility.cs"/>
         <Compile Include="StatParts\StatPart_ResonanceEquippedWeapon.cs"/>

@@ -8,6 +8,11 @@ namespace MasterworkResonance
     {
         public static void TryUpgradeGearForPawn(Pawn pawn, PawnGenerationRequest request)
         {
+            if (RaidEvolutionCompatibilityUtility.ShouldSuppressMwRaiderFeatures)
+            {
+                return;
+            }
+
             MasterworkResonanceSettings settings = MasterworkResonanceMod.Settings;
             if (settings == null || !settings.enableRaiderGearQuality)
             {
@@ -111,7 +116,8 @@ namespace MasterworkResonance
             return null;
         }
 
-        private static void TryUpgradeThing(ThingWithComps thing, Pawn pawn, PawnGenerationRequest request, int slotIndex)
+        private static void TryUpgradeThing(ThingWithComps thing, Pawn pawn, PawnGenerationRequest request,
+            int slotIndex)
         {
             if (thing == null || thing.def == null || !IsEligibleGear(thing.def))
             {

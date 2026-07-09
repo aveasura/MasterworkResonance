@@ -14,7 +14,7 @@ namespace MasterworkResonance
         public const float MaxOptionWeight = 10f;
         public const float DefaultRaiderGearQualityUpgradeChance = 0.50f;
         public const float DefaultRaiderGearLegendaryChance = 0.10f;
-        public const float DefaultRaiderResonanceChanceMultiplier = 1.5f;
+        public const float DefaultRaiderResonanceChanceMultiplier = 0.6f;
         public const float MinRaiderResonanceChanceMultiplier = 0f;
         public const float MaxRaiderResonanceChanceMultiplier = 5f;
         public const float DefaultRaiderBiocodeChance = 0.60f;
@@ -39,14 +39,19 @@ namespace MasterworkResonance
         {
             base.ExposeData();
 
-            Scribe_Values.Look(ref masterworkAwakeningChance, "masterworkAwakeningChance", DefaultMasterworkAwakeningChance);
-            Scribe_Values.Look(ref legendaryAwakeningChance, "legendaryAwakeningChance", DefaultLegendaryAwakeningChance);
+            Scribe_Values.Look(ref masterworkAwakeningChance, "masterworkAwakeningChance",
+                DefaultMasterworkAwakeningChance);
+            Scribe_Values.Look(ref legendaryAwakeningChance, "legendaryAwakeningChance",
+                DefaultLegendaryAwakeningChance);
             Scribe_Values.Look(ref enableDevModeEnchantment, "enableDevModeEnchantment", false);
             Scribe_Values.Look(ref enableRaiderGearQuality, "enableRaiderGearQuality", false);
-            Scribe_Values.Look(ref raiderGearQualityUpgradeChance, "raiderGearQualityUpgradeChance", DefaultRaiderGearQualityUpgradeChance);
-            Scribe_Values.Look(ref raiderGearLegendaryChance, "raiderGearLegendaryChance", DefaultRaiderGearLegendaryChance);
+            Scribe_Values.Look(ref raiderGearQualityUpgradeChance, "raiderGearQualityUpgradeChance",
+                DefaultRaiderGearQualityUpgradeChance);
+            Scribe_Values.Look(ref raiderGearLegendaryChance, "raiderGearLegendaryChance",
+                DefaultRaiderGearLegendaryChance);
             Scribe_Values.Look(ref enableRaiderResonance, "enableRaiderResonance", false);
-            Scribe_Values.Look(ref raiderResonanceChanceMultiplier, "raiderResonanceChanceMultiplier", DefaultRaiderResonanceChanceMultiplier);
+            Scribe_Values.Look(ref raiderResonanceChanceMultiplier, "raiderResonanceChanceMultiplier",
+                DefaultRaiderResonanceChanceMultiplier);
             Scribe_Values.Look(ref enableRaiderBiocode, "enableRaiderBiocode", false);
             Scribe_Values.Look(ref raiderBiocodeChance, "raiderBiocodeChance", DefaultRaiderBiocodeChance);
 
@@ -280,6 +285,19 @@ namespace MasterworkResonance
         public void ResetDevModeTools()
         {
             enableDevModeEnchantment = false;
+        }
+
+
+        public void ApplyRaidEvolutionCompatibilityLocks()
+        {
+            if (!RaidEvolutionCompatibilityUtility.ShouldSuppressMwRaiderFeatures)
+            {
+                return;
+            }
+
+            enableRaiderGearQuality = false;
+            enableRaiderResonance = false;
+            enableRaiderBiocode = false;
         }
 
         public void ResetRaiderGearQuality()

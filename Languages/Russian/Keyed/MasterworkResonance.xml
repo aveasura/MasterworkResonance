@@ -79,6 +79,9 @@
     <MWR_SettingsRaiderBiocodeChance>Шанс биокода</MWR_SettingsRaiderBiocodeChance>
     <MWR_SettingsResetRaiderBiocode>Вернуть настройки биокода рейдеров по умолчанию</MWR_SettingsResetRaiderBiocode>
 
+    <MWR_SettingsRaidEvolutionGearQualityNote>Активна интеграция с Raid Evolution. Masterwork Resonance не повышает качество снаряжения рейдеров напрямую; Raid Evolution обрабатывает качество рейдерского снаряжения в своём пайплайне рейда.</MWR_SettingsRaidEvolutionGearQualityNote>
+    <MWR_SettingsRaidEvolutionResonanceNote>Активна интеграция с Raid Evolution. Эта галка игнорируется: Raid Evolution выдаёт резонанс рейдерам в конце генерации рейда. Ползунок ниже остаётся активным и используется Raid Evolution.</MWR_SettingsRaidEvolutionResonanceNote>
+    <MWR_SettingsRaidEvolutionBiocodeNote>Активна интеграция с Raid Evolution. Masterwork Resonance не биокодирует оружие рейдеров напрямую; Raid Evolution обрабатывает биокод рейдерского оружия после выдачи финального снаряжения.</MWR_SettingsRaidEvolutionBiocodeNote>
 
     <MWR_Enchant_MeleeDamage_Label>Острый</MWR_Enchant_MeleeDamage_Label>
     <MWR_Enchant_MeleeDamage_Description>Увеличивает урон оружия ближнего боя.</MWR_Enchant_MeleeDamage_Description>

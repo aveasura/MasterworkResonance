@@ -23,5 +23,8 @@ Legendary items have an 80% chance to awaken resonance.
 Supports RimWorld 1.5 and 1.6.
 Includes Russian and English localization.
 Multiplayer-friendly: crafted resonance rolls use deterministic random generation.
+
+Raid Evolution compatibility: if Raid Evolution is loaded and its Masterwork Resonance integration is enabled, Masterwork Resonance raider quality, raider resonance and raider biocode options are disabled/ignored. Raider resonance is then applied by Raid Evolution at the end of raid generation. 
+The raider resonance chance multiplier in Masterwork Resonance remains active and is used by Raid Evolution.
   </description>
 </ModMetaData>

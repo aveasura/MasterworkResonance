@@ -79,6 +79,9 @@
     <MWR_SettingsRaiderBiocodeChance>Biocode chance</MWR_SettingsRaiderBiocodeChance>
     <MWR_SettingsResetRaiderBiocode>Restore raider biocode defaults</MWR_SettingsResetRaiderBiocode>
 
+    <MWR_SettingsRaidEvolutionGearQualityNote>Raid Evolution integration is active. Masterwork Resonance will not upgrade raider gear quality directly; Raid Evolution handles raider gear quality in its own raid pipeline.</MWR_SettingsRaidEvolutionGearQualityNote>
+    <MWR_SettingsRaidEvolutionResonanceNote>Raid Evolution integration is active. This checkbox is ignored: Raid Evolution applies raider resonance at the end of raid generation. The multiplier below remains active and is used by Raid Evolution.</MWR_SettingsRaidEvolutionResonanceNote>
+    <MWR_SettingsRaidEvolutionBiocodeNote>Raid Evolution integration is active. Masterwork Resonance will not biocode raider weapons directly; Raid Evolution handles raider weapon biocode after final raid gear is assigned.</MWR_SettingsRaidEvolutionBiocodeNote>
 
     <MWR_Enchant_MeleeDamage_Label>Sharp</MWR_Enchant_MeleeDamage_Label>
     <MWR_Enchant_MeleeDamage_Description>Increases melee weapon damage.</MWR_Enchant_MeleeDamage_Description>

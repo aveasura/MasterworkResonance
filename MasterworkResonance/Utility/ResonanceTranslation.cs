@@ -60,6 +60,9 @@ namespace MasterworkResonance
             { "SettingsMeleeWeapon", "Melee weapons" },
             { "SettingsRangedWeapon", "Ranged weapons" },
             { "SettingsApparel", "Armor and apparel" },
+            { "SettingsRaidEvolutionGearQualityNote", "Raid Evolution integration is active. Masterwork Resonance will not upgrade raider gear quality directly; Raid Evolution handles raider gear quality in its own raid pipeline." },
+            { "SettingsRaidEvolutionResonanceNote", "Raid Evolution integration is active. This checkbox is ignored: Raid Evolution applies raider resonance at the end of raid generation. The multiplier below remains active and is used by Raid Evolution." },
+            { "SettingsRaidEvolutionBiocodeNote", "Raid Evolution integration is active. Masterwork Resonance will not biocode raider weapons directly; Raid Evolution handles raider weapon biocode after final raid gear is assigned." },
 
             { "Enchant_MeleeDamage_Label", "Sharp" },
             { "Enchant_MeleeDamage_Description", "Increases melee weapon damage." },
